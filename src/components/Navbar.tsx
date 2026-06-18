@@ -1,0 +1,560 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Server,
+  TrendingUp,
+  Users,
+  BarChart3,
+  CreditCard,
+  Cloud,
+  Bot,
+  Layers,
+  Shield,
+  Cpu,
+  Share2,
+  Globe,
+  Rocket,
+  Building2,
+  Network,
+  ArrowRight,
+} from "lucide-react";
+import { solutions, industries } from "@/lib/data";
+
+const iconMap: Record<string, React.ElementType> = {
+  "forex-broker-infrastructure": Server,
+  "prop-firm-technology": TrendingUp,
+  "trading-crm-systems": Users,
+  "trader-ib-portals": BarChart3,
+  "payment-gateway-integration": CreditCard,
+  "vps-cloud-infrastructure": Cloud,
+  "ai-automation-systems": Bot,
+  "white-label-trading": Layers,
+  "risk-management-systems": Shield,
+  "trading-platform-integration": Cpu,
+  "affiliate-referral-systems": Share2,
+  "forex-brokers": Globe,
+  "prop-firms": TrendingUp,
+  "fintech-startups": Rocket,
+  "trading-businesses": Building2,
+  "saas-platforms": Network,
+};
+
+const solutionCategories = [
+  {
+    label: "Core Infrastructure",
+    slugs: [
+      "forex-broker-infrastructure",
+      "prop-firm-technology",
+      "white-label-trading",
+      "ai-trading-robot",
+    ],
+  },
+  {
+    label: "Client & Operations",
+    slugs: [
+      "trading-crm-systems",
+      "trader-ib-portals",
+      "affiliate-referral-systems",
+    ],
+  },
+  {
+    label: "Payments & Risk",
+    slugs: ["payment-gateway-integration", "risk-management-systems"],
+  },
+  {
+    label: "Technology",
+    slugs: [
+      "vps-cloud-infrastructure",
+      "ai-automation-systems",
+      "trading-platform-integration",
+    ],
+  },
+];
+
+const companyLinks = [
+  {
+    label: "About CYTAKE",
+    href: "/about",
+    desc: "Our story, mission, and global team",
+  },
+  {
+    label: "Why Choose Us",
+    href: "/about#why",
+    desc: "What sets us apart worldwide",
+  },
+  { label: "Contact", href: "/contact", desc: "Connect with our team" },
+];
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const pathname = usePathname();
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setActiveDropdown(null);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const open = (key: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setActiveDropdown(key);
+  };
+  const close = () => {
+    closeTimer.current = setTimeout(() => setActiveDropdown(null), 150);
+  };
+
+  return (
+    <>
+      {/* FLOATING DARK NAVBAR */}
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-7xl"
+      >
+        <div
+          className={`relative rounded-2xl transition-all duration-300
+          bg-[#0A1628]/95 backdrop-blur-xl border
+          ${
+            scrolled
+              ? "shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(56,189,248,0.08)] border-sky-400/20"
+              : "shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-white/15"
+          }`}
+        >
+          {/* ✅ Top highlight glow line */}
+          <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent rounded-full" />
+
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              {/* Logo */}
+              <Link href="/" className="flex items-center shrink-0 group -ml-5">
+                <div className="relative transition-transform duration-300 group-hover:scale-105 brightness-0 invert">
+                  <Image
+                    src="/logo-removebg-preview.png"
+                    alt="Cytake Logo"
+                    width={160}
+                    height={48}
+                    priority
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+              </Link>
+
+              {/* Desktop Nav */}
+              <div className="hidden lg:flex items-center gap-1">
+                {/* Solutions */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => open("solutions")}
+                  onMouseLeave={close}
+                >
+                  <button
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      activeDropdown === "solutions" ||
+                      pathname.startsWith("/solutions")
+                        ? "text-sky-400 bg-white/5"
+                        : "text-slate-300 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    Solutions{" "}
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${activeDropdown === "solutions" ? "rotate-180 text-sky-400" : ""}`}
+                    />
+                  </button>
+
+                  <AnimatePresence>
+                    {activeDropdown === "solutions" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[840px] rounded-2xl
+                          shadow-[0_8px_50px_rgba(0,0,0,0.5)] border border-white/10 p-6
+                          bg-[#0A1628]"
+                        onMouseEnter={() => open("solutions")}
+                        onMouseLeave={close}
+                      >
+                        <div className="grid grid-cols-4 gap-5">
+                          {solutionCategories.map((cat) => (
+                            <div key={cat.label}>
+                              <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-3 px-2">
+                                {cat.label}
+                              </div>
+                              <div className="space-y-0.5">
+                                {solutions
+                                  .filter((s) => cat.slugs.includes(s.slug))
+                                  .map((sol) => {
+                                    const Icon = iconMap[sol.slug] || Server;
+                                    return (
+                                      <Link
+                                        key={sol.slug}
+                                        href={`/solutions/${sol.slug}`}
+                                        className="flex items-start gap-2.5 px-2 py-2 rounded-xl hover:bg-white/5 group/i transition-all"
+                                      >
+                                        <div className="mt-0.5 w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/i:bg-sky-500/20 group-hover/i:border-sky-400/30 transition-colors">
+                                          <Icon
+                                            size={12}
+                                            className="text-sky-400"
+                                          />
+                                        </div>
+                                        <span className="text-[12px] font-medium text-slate-400 group-hover/i:text-white leading-tight transition-colors">
+                                          {sol.title}
+                                        </span>
+                                      </Link>
+                                    );
+                                  })}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
+                          <span className="text-xs text-slate-500">
+                            11 enterprise solutions for forex &amp; fintech
+                            businesses worldwide
+                          </span>
+                          <Link
+                            href="/solutions"
+                            className="flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 font-semibold transition-colors"
+                          >
+                            View all solutions <ArrowRight size={12} />
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Industries */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => open("industries")}
+                  onMouseLeave={close}
+                >
+                  <button
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      activeDropdown === "industries" ||
+                      pathname.startsWith("/industries")
+                        ? "text-sky-400 bg-white/5"
+                        : "text-slate-300 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    Industries{" "}
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${activeDropdown === "industries" ? "rotate-180 text-sky-400" : ""}`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {activeDropdown === "industries" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-2xl
+                          shadow-[0_8px_50px_rgba(0,0,0,0.5)] border border-white/10 p-3
+                          bg-[#0A1628]"
+                        onMouseEnter={() => open("industries")}
+                        onMouseLeave={close}
+                      >
+                        {industries.map((ind) => {
+                          const Icon = iconMap[ind.slug] || Globe;
+                          return (
+                            <Link
+                              key={ind.slug}
+                              href={`/industries#${ind.slug}`}
+                              className="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 group/i transition-all"
+                            >
+                              <div className="mt-0.5 w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/i:bg-sky-500/20 group-hover/i:border-sky-400/30 transition-colors">
+                                <Icon size={14} className="text-sky-400" />
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium text-slate-300 group-hover/i:text-white transition-colors">
+                                  {ind.title}
+                                </div>
+                                <div className="text-[11px] text-slate-500 mt-0.5 leading-tight">
+                                  {ind.shortDesc.slice(0, 50)}…
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Company */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => open("company")}
+                  onMouseLeave={close}
+                >
+                  <button
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      activeDropdown === "company" ||
+                      pathname.startsWith("/about")
+                        ? "text-sky-400 bg-white/5"
+                        : "text-slate-300 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    Company{" "}
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${activeDropdown === "company" ? "rotate-180 text-sky-400" : ""}`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {activeDropdown === "company" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute top-full right-0 mt-3 w-56 rounded-2xl
+                          shadow-[0_8px_50px_rgba(0,0,0,0.5)] border border-white/10 p-2
+                          bg-[#0A1628]"
+                        onMouseEnter={() => open("company")}
+                        onMouseLeave={close}
+                      >
+                        {companyLinks.map((link) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            className="flex flex-col px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all group/c"
+                          >
+                            <span className="text-sm font-medium text-slate-300 group-hover/c:text-white transition-colors">
+                              {link.label}
+                            </span>
+                            <span className="text-[11px] text-slate-500 mt-0.5">
+                              {link.desc}
+                            </span>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    pathname === "/contact"
+                      ? "text-sky-400 bg-white/5"
+                      : "text-slate-300 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  Contact
+                </Link>
+              </div>
+
+              {/* CTA Button */}
+              <div className="hidden lg:flex items-center">
+                <Link
+                  href="/demo"
+                  className="px-6 py-2.5 rounded-xl text-sm font-semibold text-black
+      bg-white hover:bg-gray-100
+      hover:shadow-[0_6px_25px_rgba(255,255,255,0.15)]
+      transition-all duration-300"
+                >
+                  Request Demo
+                </Link>
+              </div>
+
+              {/* Mobile Toggle */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="lg:hidden w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white rounded-lg hover:bg-white/10 transition-all"
+              >
+                <AnimatePresence mode="wait">
+                  {mobileOpen ? (
+                    <motion.div
+                      key="x"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <X size={20} />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="m"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <Menu size={20} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 lg:hidden"
+          >
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setMobileOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
+              className="absolute right-0 top-0 bottom-0 w-80 max-w-[90vw] border-l border-white/10 overflow-y-auto pt-20 pb-8 px-4 shadow-2xl bg-[#0A1628]"
+            >
+              <div className="space-y-0.5">
+                {/* Mobile Solutions */}
+                <button
+                  onClick={() =>
+                    setMobileExpanded(
+                      mobileExpanded === "solutions" ? null : "solutions",
+                    )
+                  }
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                >
+                  Solutions{" "}
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform text-slate-500 ${mobileExpanded === "solutions" ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {mobileExpanded === "solutions" && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden ml-2"
+                    >
+                      {solutions.map((sol) => {
+                        const Icon = iconMap[sol.slug] || Server;
+                        return (
+                          <Link
+                            key={sol.slug}
+                            href={`/solutions/${sol.slug}`}
+                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
+                          >
+                            <Icon size={13} className="text-sky-400 shrink-0" />
+                            {sol.title}
+                          </Link>
+                        );
+                      })}
+                      <Link
+                        href="/solutions"
+                        className="flex items-center gap-2 px-4 py-2.5 text-sky-400 text-sm font-semibold"
+                      >
+                        View all <ArrowRight size={12} />
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Mobile Industries */}
+                <button
+                  onClick={() =>
+                    setMobileExpanded(
+                      mobileExpanded === "industries" ? null : "industries",
+                    )
+                  }
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                >
+                  Industries{" "}
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform text-slate-500 ${mobileExpanded === "industries" ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {mobileExpanded === "industries" && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden ml-2"
+                    >
+                      {industries.map((ind) => {
+                        const Icon = iconMap[ind.slug] || Globe;
+                        return (
+                          <Link
+                            key={ind.slug}
+                            href={`/industries#${ind.slug}`}
+                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
+                          >
+                            <Icon size={13} className="text-sky-400 shrink-0" />
+                            {ind.title}
+                          </Link>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <Link
+                  href="/about"
+                  className="flex px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  className="flex px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                >
+                  Contact
+                </Link>
+              </div>
+
+              {/* Mobile CTA */}
+              <div className="mt-6 border-t border-white/10 pt-6">
+                <Link
+                  href="/demo"
+                  className="w-full flex justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-black bg-white hover:bg-gray-100 transition-all"
+                >
+                  Request Demo
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
