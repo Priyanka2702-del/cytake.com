@@ -36,6 +36,7 @@ const iconMap: Record<string, React.ElementType> = {
   "payment-gateway-integration": CreditCard,
   "vps-cloud-infrastructure": Cloud,
   "ai-automation-systems": Bot,
+  "ai-trading-robot": Bot,
   "white-label-trading": Layers,
   "risk-management-systems": Shield,
   "trading-platform-integration": Cpu,
@@ -123,13 +124,28 @@ export default function Navbar() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setActiveDropdown(key);
   };
+
   const close = () => {
     closeTimer.current = setTimeout(() => setActiveDropdown(null), 150);
   };
 
+  const navBtnClass = (active: boolean) =>
+    `flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+      active
+        ? "text-blue-600 bg-blue-50"
+        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+    }`;
+
+  const navLinkClass = (active: boolean) =>
+    `px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+      active
+        ? "text-blue-600 bg-blue-50"
+        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+    }`;
+
   return (
     <>
-      {/* FLOATING DARK NAVBAR */}
+      {/* FLOATING LIGHT NAVBAR */}
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -138,28 +154,29 @@ export default function Navbar() {
       >
         <div
           className={`relative rounded-2xl transition-all duration-300
-          bg-[#0A1628]/95 backdrop-blur-xl border
+          bg-gradient-to-r from-white via-sky-50 to-blue-50
+          backdrop-blur-xl border
           ${
             scrolled
-              ? "shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(56,189,248,0.08)] border-sky-400/20"
-              : "shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-white/15"
+              ? "shadow-[0_8px_40px_rgba(56,189,248,0.18)] border-sky-200"
+              : "shadow-[0_4px_25px_rgba(0,0,0,0.08)] border-white/80"
           }`}
         >
-          {/* ✅ Top highlight glow line */}
-          <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent rounded-full" />
+          {/* Top highlight glow line */}
+          <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent rounded-full" />
 
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
               <Link href="/" className="flex items-center shrink-0 group -ml-5">
-                <div className="relative transition-transform duration-300 group-hover:scale-105 brightness-0 invert">
+                <div className="relative transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src="/logo-removebg-preview.png"
                     alt="Cytake Logo"
                     width={160}
                     height={48}
                     priority
-                    style={{ objectFit: "contain" }}
+                    className="h-auto w-[160px] object-contain"
                   />
                 </div>
               </Link>
@@ -173,17 +190,19 @@ export default function Navbar() {
                   onMouseLeave={close}
                 >
                   <button
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={navBtnClass(
                       activeDropdown === "solutions" ||
-                      pathname.startsWith("/solutions")
-                        ? "text-sky-400 bg-white/5"
-                        : "text-slate-300 hover:text-white hover:bg-white/5"
-                    }`}
+                        pathname.startsWith("/solutions")
+                    )}
                   >
                     Solutions{" "}
                     <ChevronDown
                       size={14}
-                      className={`transition-transform duration-200 ${activeDropdown === "solutions" ? "rotate-180 text-sky-400" : ""}`}
+                      className={`transition-transform duration-200 ${
+                        activeDropdown === "solutions"
+                          ? "rotate-180 text-blue-500"
+                          : "text-gray-400"
+                      }`}
                     />
                   </button>
 
@@ -195,17 +214,18 @@ export default function Navbar() {
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.15 }}
                         className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[840px] rounded-2xl
-                          shadow-[0_8px_50px_rgba(0,0,0,0.5)] border border-white/10 p-6
-                          bg-[#0A1628]"
+                          shadow-[0_8px_50px_rgba(56,189,248,0.12)] border border-sky-100 p-6
+                          bg-gradient-to-b from-white via-sky-50 to-blue-50"
                         onMouseEnter={() => open("solutions")}
                         onMouseLeave={close}
                       >
                         <div className="grid grid-cols-4 gap-5">
                           {solutionCategories.map((cat) => (
                             <div key={cat.label}>
-                              <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-3 px-2">
+                              <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-3 px-2">
                                 {cat.label}
                               </div>
+
                               <div className="space-y-0.5">
                                 {solutions
                                   .filter((s) => cat.slugs.includes(s.slug))
@@ -215,15 +235,16 @@ export default function Navbar() {
                                       <Link
                                         key={sol.slug}
                                         href={`/solutions/${sol.slug}`}
-                                        className="flex items-start gap-2.5 px-2 py-2 rounded-xl hover:bg-white/5 group/i transition-all"
+                                        className="flex items-start gap-2.5 px-2 py-2 rounded-xl hover:bg-sky-100/60 group/i transition-all"
                                       >
-                                        <div className="mt-0.5 w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/i:bg-sky-500/20 group-hover/i:border-sky-400/30 transition-colors">
+                                        <div className="mt-0.5 w-7 h-7 rounded-lg bg-sky-100 border border-sky-200 flex items-center justify-center shrink-0 group-hover/i:bg-sky-200 transition-colors">
                                           <Icon
                                             size={12}
-                                            className="text-sky-400"
+                                            className="text-blue-600"
                                           />
                                         </div>
-                                        <span className="text-[12px] font-medium text-slate-400 group-hover/i:text-white leading-tight transition-colors">
+
+                                        <span className="text-[12px] font-medium text-gray-600 group-hover/i:text-blue-700 leading-tight transition-colors">
                                           {sol.title}
                                         </span>
                                       </Link>
@@ -233,14 +254,16 @@ export default function Navbar() {
                             </div>
                           ))}
                         </div>
-                        <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
-                          <span className="text-xs text-slate-500">
+
+                        <div className="mt-5 pt-4 border-t border-sky-100 flex items-center justify-between">
+                          <span className="text-xs text-gray-400">
                             11 enterprise solutions for forex &amp; fintech
                             businesses worldwide
                           </span>
+
                           <Link
                             href="/solutions"
-                            className="flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 font-semibold transition-colors"
+                            className="flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-700 font-semibold transition-colors"
                           >
                             View all solutions <ArrowRight size={12} />
                           </Link>
@@ -257,19 +280,22 @@ export default function Navbar() {
                   onMouseLeave={close}
                 >
                   <button
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={navBtnClass(
                       activeDropdown === "industries" ||
-                      pathname.startsWith("/industries")
-                        ? "text-sky-400 bg-white/5"
-                        : "text-slate-300 hover:text-white hover:bg-white/5"
-                    }`}
+                        pathname.startsWith("/industries")
+                    )}
                   >
                     Industries{" "}
                     <ChevronDown
                       size={14}
-                      className={`transition-transform duration-200 ${activeDropdown === "industries" ? "rotate-180 text-sky-400" : ""}`}
+                      className={`transition-transform duration-200 ${
+                        activeDropdown === "industries"
+                          ? "rotate-180 text-blue-500"
+                          : "text-gray-400"
+                      }`}
                     />
                   </button>
+
                   <AnimatePresence>
                     {activeDropdown === "industries" && (
                       <motion.div
@@ -278,8 +304,8 @@ export default function Navbar() {
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.15 }}
                         className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-2xl
-                          shadow-[0_8px_50px_rgba(0,0,0,0.5)] border border-white/10 p-3
-                          bg-[#0A1628]"
+                          shadow-[0_8px_50px_rgba(56,189,248,0.12)] border border-sky-100 p-3
+                          bg-gradient-to-b from-white via-sky-50 to-blue-50"
                         onMouseEnter={() => open("industries")}
                         onMouseLeave={close}
                       >
@@ -289,16 +315,17 @@ export default function Navbar() {
                             <Link
                               key={ind.slug}
                               href={`/industries#${ind.slug}`}
-                              className="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 group/i transition-all"
+                              className="flex items-start gap-3 px-3 py-2.5 rounded-xl hover:bg-sky-100/60 group/i transition-all"
                             >
-                              <div className="mt-0.5 w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover/i:bg-sky-500/20 group-hover/i:border-sky-400/30 transition-colors">
-                                <Icon size={14} className="text-sky-400" />
+                              <div className="mt-0.5 w-8 h-8 rounded-lg bg-sky-100 border border-sky-200 flex items-center justify-center shrink-0 group-hover/i:bg-sky-200 transition-colors">
+                                <Icon size={14} className="text-blue-600" />
                               </div>
+
                               <div>
-                                <div className="text-sm font-medium text-slate-300 group-hover/i:text-white transition-colors">
+                                <div className="text-sm font-medium text-gray-700 group-hover/i:text-blue-700 transition-colors">
                                   {ind.title}
                                 </div>
-                                <div className="text-[11px] text-slate-500 mt-0.5 leading-tight">
+                                <div className="text-[11px] text-gray-400 mt-0.5 leading-tight">
                                   {ind.shortDesc.slice(0, 50)}…
                                 </div>
                               </div>
@@ -317,19 +344,22 @@ export default function Navbar() {
                   onMouseLeave={close}
                 >
                   <button
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={navBtnClass(
                       activeDropdown === "company" ||
-                      pathname.startsWith("/about")
-                        ? "text-sky-400 bg-white/5"
-                        : "text-slate-300 hover:text-white hover:bg-white/5"
-                    }`}
+                        pathname.startsWith("/about")
+                    )}
                   >
                     Company{" "}
                     <ChevronDown
                       size={14}
-                      className={`transition-transform duration-200 ${activeDropdown === "company" ? "rotate-180 text-sky-400" : ""}`}
+                      className={`transition-transform duration-200 ${
+                        activeDropdown === "company"
+                          ? "rotate-180 text-blue-500"
+                          : "text-gray-400"
+                      }`}
                     />
                   </button>
+
                   <AnimatePresence>
                     {activeDropdown === "company" && (
                       <motion.div
@@ -338,8 +368,8 @@ export default function Navbar() {
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.15 }}
                         className="absolute top-full right-0 mt-3 w-56 rounded-2xl
-                          shadow-[0_8px_50px_rgba(0,0,0,0.5)] border border-white/10 p-2
-                          bg-[#0A1628]"
+                          shadow-[0_8px_50px_rgba(56,189,248,0.12)] border border-sky-100 p-2
+                          bg-gradient-to-b from-white via-sky-50 to-blue-50"
                         onMouseEnter={() => open("company")}
                         onMouseLeave={close}
                       >
@@ -347,12 +377,13 @@ export default function Navbar() {
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="flex flex-col px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all group/c"
+                            className="flex flex-col px-3 py-2.5 rounded-xl hover:bg-sky-100/60 transition-all group/c"
                           >
-                            <span className="text-sm font-medium text-slate-300 group-hover/c:text-white transition-colors">
+                            <span className="text-sm font-medium text-gray-700 group-hover/c:text-blue-700 transition-colors">
                               {link.label}
                             </span>
-                            <span className="text-[11px] text-slate-500 mt-0.5">
+
+                            <span className="text-[11px] text-gray-400 mt-0.5">
                               {link.desc}
                             </span>
                           </Link>
@@ -364,11 +395,7 @@ export default function Navbar() {
 
                 <Link
                   href="/contact"
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                    pathname === "/contact"
-                      ? "text-sky-400 bg-white/5"
-                      : "text-slate-300 hover:text-white hover:bg-white/5"
-                  }`}
+                  className={navLinkClass(pathname === "/contact")}
                 >
                   Contact
                 </Link>
@@ -378,10 +405,10 @@ export default function Navbar() {
               <div className="hidden lg:flex items-center">
                 <Link
                   href="/demo"
-                  className="px-6 py-2.5 rounded-xl text-sm font-semibold text-black
-      bg-white hover:bg-gray-100
-      hover:shadow-[0_6px_25px_rgba(255,255,255,0.15)]
-      transition-all duration-300"
+                  className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white
+                    bg-gradient-to-r from-blue-600 via-sky-500 to-sky-400
+                    hover:shadow-[0_6px_25px_rgba(56,189,248,0.5)] hover:-translate-y-0.5
+                    transition-all duration-300"
                 >
                   Request Demo
                 </Link>
@@ -390,7 +417,7 @@ export default function Navbar() {
               {/* Mobile Toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white rounded-lg hover:bg-white/10 transition-all"
+                className="lg:hidden w-10 h-10 flex items-center justify-center text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-all"
               >
                 <AnimatePresence mode="wait">
                   {mobileOpen ? (
@@ -431,32 +458,36 @@ export default function Navbar() {
             className="fixed inset-0 z-40 lg:hidden"
           >
             <div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/30 backdrop-blur-sm"
               onClick={() => setMobileOpen(false)}
             />
+
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
-              className="absolute right-0 top-0 bottom-0 w-80 max-w-[90vw] border-l border-white/10 overflow-y-auto pt-20 pb-8 px-4 shadow-2xl bg-[#0A1628]"
+              className="absolute right-0 top-0 bottom-0 w-80 max-w-[90vw] border-l border-sky-100 overflow-y-auto pt-20 pb-8 px-4 shadow-2xl bg-gradient-to-b from-white via-sky-50 to-blue-50"
             >
               <div className="space-y-0.5">
                 {/* Mobile Solutions */}
                 <button
                   onClick={() =>
                     setMobileExpanded(
-                      mobileExpanded === "solutions" ? null : "solutions",
+                      mobileExpanded === "solutions" ? null : "solutions"
                     )
                   }
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-sky-50 text-sm font-medium transition-all"
                 >
                   Solutions{" "}
                   <ChevronDown
                     size={14}
-                    className={`transition-transform text-slate-500 ${mobileExpanded === "solutions" ? "rotate-180" : ""}`}
+                    className={`transition-transform text-gray-400 ${
+                      mobileExpanded === "solutions" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
+
                 <AnimatePresence>
                   {mobileExpanded === "solutions" && (
                     <motion.div
@@ -471,16 +502,17 @@ export default function Navbar() {
                           <Link
                             key={sol.slug}
                             href={`/solutions/${sol.slug}`}
-                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
+                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:text-blue-700 hover:bg-sky-100/60 text-sm transition-all"
                           >
-                            <Icon size={13} className="text-sky-400 shrink-0" />
+                            <Icon size={13} className="text-blue-500 shrink-0" />
                             {sol.title}
                           </Link>
                         );
                       })}
+
                       <Link
                         href="/solutions"
-                        className="flex items-center gap-2 px-4 py-2.5 text-sky-400 text-sm font-semibold"
+                        className="flex items-center gap-2 px-4 py-2.5 text-blue-600 text-sm font-semibold"
                       >
                         View all <ArrowRight size={12} />
                       </Link>
@@ -492,17 +524,20 @@ export default function Navbar() {
                 <button
                   onClick={() =>
                     setMobileExpanded(
-                      mobileExpanded === "industries" ? null : "industries",
+                      mobileExpanded === "industries" ? null : "industries"
                     )
                   }
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-sky-50 text-sm font-medium transition-all"
                 >
                   Industries{" "}
                   <ChevronDown
                     size={14}
-                    className={`transition-transform text-slate-500 ${mobileExpanded === "industries" ? "rotate-180" : ""}`}
+                    className={`transition-transform text-gray-400 ${
+                      mobileExpanded === "industries" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
+
                 <AnimatePresence>
                   {mobileExpanded === "industries" && (
                     <motion.div
@@ -517,9 +552,9 @@ export default function Navbar() {
                           <Link
                             key={ind.slug}
                             href={`/industries#${ind.slug}`}
-                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-sm transition-all"
+                            className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-500 hover:text-blue-700 hover:bg-sky-100/60 text-sm transition-all"
                           >
-                            <Icon size={13} className="text-sky-400 shrink-0" />
+                            <Icon size={13} className="text-blue-500 shrink-0" />
                             {ind.title}
                           </Link>
                         );
@@ -530,23 +565,26 @@ export default function Navbar() {
 
                 <Link
                   href="/about"
-                  className="flex px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                  className="flex px-4 py-3 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-sky-50 text-sm font-medium transition-all"
                 >
                   About
                 </Link>
+
                 <Link
                   href="/contact"
-                  className="flex px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 text-sm font-medium transition-all"
+                  className="flex px-4 py-3 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-sky-50 text-sm font-medium transition-all"
                 >
                   Contact
                 </Link>
               </div>
 
               {/* Mobile CTA */}
-              <div className="mt-6 border-t border-white/10 pt-6">
+              <div className="mt-6 border-t border-sky-100 pt-6">
                 <Link
                   href="/demo"
-                  className="w-full flex justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-black bg-white hover:bg-gray-100 transition-all"
+                  className="w-full flex justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white
+                    bg-gradient-to-r from-blue-600 via-sky-500 to-sky-400
+                    hover:shadow-[0_6px_20px_rgba(56,189,248,0.5)] transition-all"
                 >
                   Request Demo
                 </Link>

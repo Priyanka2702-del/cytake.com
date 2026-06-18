@@ -3,8 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUp, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowUp, Mail, Phone, MapPin, BriefcaseBusiness, Users,TrendingUp, Rocket} from "lucide-react";
 import { solutions, industries } from "@/lib/data";
+
+
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
@@ -123,6 +125,70 @@ export default function Footer() {
       {/* Top glow line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
+      {/* Hiring Banner */}
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12">
+  <div className="rounded-3xl border border-sky-500/20 bg-gradient-to-r from-[#071633] to-[#0A1F4D] p-8 lg:p-10 mb-12">
+
+    <div className="grid lg:grid-cols-4 gap-8 items-center">
+
+      <div className="lg:col-span-2 flex gap-6 items-start">
+
+  <div className="w-16 h-16 rounded-2xl border border-sky-400/20 bg-sky-500/5 flex items-center justify-center shrink-0">
+    <BriefcaseBusiness className="w-8 h-8 text-sky-400" />
+  </div>
+
+  <div>
+    <h2 className="text-4xl font-black text-white mb-3">
+      We're <span className="text-sky-400">Hiring!</span>
+    </h2>
+
+    <p className="text-slate-300">
+      Join CYTAKE Global and help build the future of Forex &
+      FinTech technology.
+    </p>
+  </div>
+
+</div>
+
+<div className="grid grid-cols-3 gap-6">
+
+  <div>
+    <Users className="w-6 h-6 text-sky-400 mb-2" />
+    <h4 className="text-white font-bold">Global Team</h4>
+    <p className="text-slate-400 text-sm">
+      Work with talent across the world
+    </p>
+  </div>
+
+  <div>
+    <TrendingUp className="w-6 h-6 text-sky-400 mb-2" />
+    <h4 className="text-white font-bold">Grow Together</h4>
+    <p className="text-slate-400 text-sm">
+      Learn, innovate & grow with us
+    </p>
+  </div>
+
+  <div>
+    <Rocket className="w-6 h-6 text-sky-400 mb-2" />
+    <h4 className="text-white font-bold">Impact Millions</h4>
+    <p className="text-slate-400 text-sm">
+      Build solutions used by brokers worldwide
+    </p>
+  </div>
+
+</div>
+
+<div className="text-right">
+  <Link
+    href="/careers"
+    className="inline-flex items-center px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold"
+  >
+    View Open Positions →
+  </Link>
+</div>
+</div>
+</div>
+</div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Main footer grid */}
@@ -131,17 +197,17 @@ export default function Footer() {
           {/* ✅ Brand column — PNG Logo (same as Navbar) */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center shrink-0 group mb-6">
-              <div className="relative transition-transform duration-300 group-hover:scale-105 brightness-0 invert">
-                <Image
-                  src="/logo-removebg-preview.png"
-                  alt="Cytake Logo"
-                  width={160}
-                  height={48}
-                  priority
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </Link>
+  <div className="bg-white rounded-xl px-4 py-2 inline-flex items-center shadow-lg transition-transform duration-300 group-hover:scale-105">
+    <Image
+      src="/logo-removebg-preview.png"
+      alt="Cytake Logo"
+      width={160}
+      height={48}
+      priority
+      style={{ objectFit: "contain" }}
+    />
+  </div>
+</Link>
 
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs mb-6">
               Enterprise forex &amp; fintech infrastructure for brokers, prop firms, and trading businesses worldwide. Technology | Trading | Trust.
@@ -180,7 +246,8 @@ export default function Footer() {
                 ))}
               </div>
             </div>
-          </div>
+            </div>
+          
 
           {/* Solutions */}
           <div>
