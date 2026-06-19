@@ -3,10 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowUp, Mail, Phone, MapPin, BriefcaseBusiness, Users,TrendingUp, Rocket} from "lucide-react";
+import { ArrowUp, Mail, Phone, MapPin, BriefcaseBusiness, Users, TrendingUp, Rocket } from "lucide-react";
 import { solutions, industries } from "@/lib/data";
-
-
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
@@ -105,132 +103,104 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-br from-[#020617] via-[#050E1F] to-[#020617] overflow-hidden border-t border-white/5">
+    <footer className="relative bg-white overflow-hidden border-t border-gray-200">
 
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:60px_60px]" />
+      {/* Grid Pattern (light) */}
 
-      {/* Glowing Orbs */}
-      <motion.div
-        className="absolute top-[-10%] left-[10%] w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none"
-        animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-[-10%] right-[10%] w-[500px] h-[500px] rounded-full bg-sky-500/8 blur-[120px] pointer-events-none"
-        animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      />
-
+      {/* Glowing Orbs removed – not needed on white */}
       {/* Top glow line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
 
-      {/* Hiring Banner */}
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12">
-  <div className="rounded-3xl border border-sky-500/20 bg-gradient-to-r from-[#071633] to-[#0A1F4D] p-8 lg:p-10 mb-12">
+      {/* Hiring Banner – completely untouched (dark theme) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12">
+        <div className="rounded-3xl border border-sky-500/20 bg-gradient-to-r from-[#071633] to-[#0A1F4D] p-8 lg:p-10 mb-12">
+          {/* ... same hiring banner content ... */}
+          <div className="grid lg:grid-cols-4 gap-8 items-center">
+            <div className="lg:col-span-2 flex gap-6 items-start">
+              <div className="w-16 h-16 rounded-2xl border border-sky-400/20 bg-sky-500/5 flex items-center justify-center shrink-0">
+                <BriefcaseBusiness className="w-8 h-8 text-sky-400" />
+              </div>
+              <div>
+                <h2 className="text-4xl font-black text-white mb-3">
+                  We're <span className="text-sky-400">Hiring!</span>
+                </h2>
+                <p className="text-slate-300">
+                  Join CYTAKE Global and help build the future of Forex &
+                  FinTech technology.
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-6">
+              <div>
+                <Users className="w-6 h-6 text-sky-400 mb-2" />
+                <h4 className="text-white font-bold">Global Team</h4>
+                <p className="text-slate-400 text-sm">Work with talent across the world</p>
+              </div>
+              <div>
+                <TrendingUp className="w-6 h-6 text-sky-400 mb-2" />
+                <h4 className="text-white font-bold">Grow Together</h4>
+                <p className="text-slate-400 text-sm">Learn, innovate & grow with us</p>
+              </div>
+              <div>
+                <Rocket className="w-6 h-6 text-sky-400 mb-2" />
+                <h4 className="text-white font-bold">Impact Millions</h4>
+                <p className="text-slate-400 text-sm">Build solutions used by brokers worldwide</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <Link
+                href="/careers"
+                className="inline-flex items-center px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold"
+              >
+                View Open Positions →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div className="grid lg:grid-cols-4 gap-8 items-center">
-
-      <div className="lg:col-span-2 flex gap-6 items-start">
-
-  <div className="w-16 h-16 rounded-2xl border border-sky-400/20 bg-sky-500/5 flex items-center justify-center shrink-0">
-    <BriefcaseBusiness className="w-8 h-8 text-sky-400" />
-  </div>
-
-  <div>
-    <h2 className="text-4xl font-black text-white mb-3">
-      We're <span className="text-sky-400">Hiring!</span>
-    </h2>
-
-    <p className="text-slate-300">
-      Join CYTAKE Global and help build the future of Forex &
-      FinTech technology.
-    </p>
-  </div>
-
-</div>
-
-<div className="grid grid-cols-3 gap-6">
-
-  <div>
-    <Users className="w-6 h-6 text-sky-400 mb-2" />
-    <h4 className="text-white font-bold">Global Team</h4>
-    <p className="text-slate-400 text-sm">
-      Work with talent across the world
-    </p>
-  </div>
-
-  <div>
-    <TrendingUp className="w-6 h-6 text-sky-400 mb-2" />
-    <h4 className="text-white font-bold">Grow Together</h4>
-    <p className="text-slate-400 text-sm">
-      Learn, innovate & grow with us
-    </p>
-  </div>
-
-  <div>
-    <Rocket className="w-6 h-6 text-sky-400 mb-2" />
-    <h4 className="text-white font-bold">Impact Millions</h4>
-    <p className="text-slate-400 text-sm">
-      Build solutions used by brokers worldwide
-    </p>
-  </div>
-
-</div>
-
-<div className="text-right">
-  <Link
-    href="/careers"
-    className="inline-flex items-center px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold"
-  >
-    View Open Positions →
-  </Link>
-</div>
-</div>
-</div>
-</div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* Main footer grid */}
+        {/* Main footer grid – text changed to dark for readability */}
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
-          {/* ✅ Brand column — PNG Logo (same as Navbar) */}
+          {/* Brand column */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center shrink-0 group mb-6">
-  <div className="bg-white rounded-xl px-4 py-2 inline-flex items-center shadow-lg transition-transform duration-300 group-hover:scale-105">
-    <Image
-      src="/logo.png"
-      alt="Cytake Logo"
-      width={160}
-      height={48}
-      priority
-      style={{ objectFit: "contain" }}
-    />
-  </div>
-</Link>
+              <div className="inline-flex items-center transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/logo.png"
+                  alt="Cytake Logo"
+                  width={160}
+                  height={48}
+                  priority
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+            </Link>
 
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-gray-600 text-sm leading-relaxed max-w-xs mb-6">
               Enterprise forex &amp; fintech infrastructure for brokers, prop firms, and trading businesses worldwide. Technology | Trading | Trust.
             </p>
 
             <div className="space-y-2.5">
-              <a href="mailto:info@cytake.com" className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-sky-400 transition-colors">
-                <Mail size={14} className="text-sky-400 shrink-0" />
+              <a href="mailto:info@cytake.com" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                <Mail size={14} className="text-blue-600 shrink-0" />
                 info@cytake.com
               </a>
-              <a href="https://wa.me/1234567890" className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-sky-400 transition-colors">
-                <Phone size={14} className="text-sky-400 shrink-0" />
+              <a href="https://wa.me/1234567890" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                <Phone size={14} className="text-blue-600 shrink-0" />
                 WhatsApp Support
               </a>
-              <div className="flex items-center gap-2.5 text-sm text-slate-400">
-                <MapPin size={14} className="text-sky-400 shrink-0" />
+              <div className="flex items-center gap-2.5 text-sm text-gray-600">
+                <MapPin size={14} className="text-blue-600 shrink-0" />
                 Global — 50+ Countries Served
               </div>
             </div>
 
             {/* Social icons */}
             <div className="mt-6">
-              <p className="text-xs text-slate-500 uppercase tracking-widest mb-3">Follow Us</p>
+              <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Follow Us</p>
               <div className="flex flex-wrap gap-2">
                 {socialLinks.map((s) => (
                   <a
@@ -239,29 +209,28 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     title={s.label}
-                    className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-sky-400/50 hover:bg-sky-500/20 transition-all"
+                    className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50 transition-all"
                   >
                     {s.icon}
                   </a>
                 ))}
               </div>
             </div>
-            </div>
-          
+          </div>
 
           {/* Solutions */}
           <div>
-            <h4 className="text-white font-bold text-sm mb-4">Solutions</h4>
+            <h4 className="text-gray-900 font-bold text-sm mb-4">Solutions</h4>
             <ul className="space-y-2.5">
               {solutions.slice(0, 6).map((sol) => (
                 <li key={sol.slug}>
-                  <Link href={`/solutions/${sol.slug}`} className="text-sm text-slate-400 hover:text-sky-400 transition-colors leading-tight">
+                  <Link href={`/solutions/${sol.slug}`} className="text-sm text-gray-600 hover:text-blue-600 transition-colors leading-tight">
                     {sol.title}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/solutions" className="text-sm text-sky-400 hover:text-sky-300 transition-colors font-semibold">
+                <Link href="/solutions" className="text-sm text-blue-600 hover:text-blue-800 transition-colors font-semibold">
                   View all 11 solutions →
                 </Link>
               </li>
@@ -270,19 +239,19 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-white font-bold text-sm mb-4">Company</h4>
+            <h4 className="text-gray-900 font-bold text-sm mb-4">Company</h4>
             <ul className="space-y-2.5">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-slate-400 hover:text-sky-400 transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-gray-600 hover:text-blue-600 transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
-            <h4 className="text-white font-bold text-sm mt-6 mb-4">Industries</h4>
+            <h4 className="text-gray-900 font-bold text-sm mt-6 mb-4">Industries</h4>
             <ul className="space-y-2.5">
               {industries.map((ind) => (
                 <li key={ind.slug}>
-                  <Link href={`/industries#${ind.slug}`} className="text-sm text-slate-400 hover:text-sky-400 transition-colors">{ind.title}</Link>
+                  <Link href={`/industries#${ind.slug}`} className="text-sm text-gray-600 hover:text-blue-600 transition-colors">{ind.title}</Link>
                 </li>
               ))}
             </ul>
@@ -290,22 +259,22 @@ export default function Footer() {
 
           {/* Resources & CTA */}
           <div>
-            <h4 className="text-white font-bold text-sm mb-4">Resources</h4>
+            <h4 className="text-gray-900 font-bold text-sm mb-4">Resources</h4>
             <ul className="space-y-2.5 mb-6">
               {resourceLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-slate-400 hover:text-sky-400 transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-gray-600 hover:text-blue-600 transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
 
             {/* Mini CTA */}
-            <div className="rounded-2xl p-5 bg-gradient-to-br from-sky-500/15 to-blue-600/10 border border-sky-400/20 backdrop-blur-sm">
-              <p className="text-xs text-white font-bold mb-1">Ready to launch?</p>
-              <p className="text-xs text-slate-400 mb-3">Talk to our team today.</p>
+            <div className="rounded-2xl p-5 bg-gradient-to-br from-blue-50 to-sky-50 border border-blue-100">
+              <p className="text-xs text-gray-900 font-bold mb-1">Ready to launch?</p>
+              <p className="text-xs text-gray-500 mb-3">Talk to our team today.</p>
               <Link
                 href="/contact"
-                className="flex items-center justify-center gap-2 text-[#020617] font-bold text-sm rounded-xl px-4 py-2.5 bg-gradient-to-r from-white to-sky-100 hover:shadow-[0_6px_20px_rgba(56,189,248,0.4)] transition-shadow"
+                className="flex items-center justify-center gap-2 text-white font-bold text-sm rounded-xl px-4 py-2.5 bg-blue-600 hover:bg-blue-700 shadow-[0_6px_20px_rgba(37,99,235,0.2)] transition-shadow"
               >
                 Get Started Free
               </Link>
@@ -314,13 +283,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="h-px bg-white/5" />
+        <div className="h-px bg-gray-200" />
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4">
-            <p className="text-xs text-slate-500">© {new Date().getFullYear()} CYTAKE Global Technologies. All rights reserved.</p>
+            <p className="text-xs text-gray-400">© 2023 CYTAKE Global Limited . All rights reserved.</p>
             <div className="flex items-center gap-4">
               {legalLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="text-xs text-slate-500 hover:text-sky-400 transition-colors">{link.label}</Link>
+                <Link key={link.href} href={link.href} className="text-xs text-gray-400 hover:text-blue-600 transition-colors">{link.label}</Link>
               ))}
             </div>
           </div>
@@ -329,7 +298,7 @@ export default function Footer() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-sky-400 hover:text-white hover:bg-sky-500/20 hover:border-sky-400/50 transition-all shrink-0"
+            className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center text-blue-600 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all shrink-0"
           >
             <ArrowUp size={14} />
           </motion.button>
