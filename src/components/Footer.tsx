@@ -199,7 +199,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center shrink-0 group mb-6">
   <div className="bg-white rounded-xl px-4 py-2 inline-flex items-center shadow-lg transition-transform duration-300 group-hover:scale-105">
     <Image
-      src="/logo-removebg-preview.png"
+      src="/logo.png"
       alt="Cytake Logo"
       width={160}
       height={48}

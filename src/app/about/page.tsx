@@ -124,27 +124,27 @@ const bdTeam = [
   },
 ];
 
-// TeamCard with Read More
+// TeamCard with Read More – updated for premium executive look
 function TeamCard({ member }: { member: any }) {
   const [expanded, setExpanded] = useState(false);
   const MAX = 120;
   const isLong = member.desc.length > MAX;
 
   return (
-    <div className="group flex flex-col bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:border-sky-400/30 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)] transition-all duration-500">
-      {/* Image */}
-      <div className="relative h-[420px] overflow-hidden">
+    <div className="group flex flex-col border border-white/10 rounded-3xl overflow-hidden hover:border-sky-400/30 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)] transition-all duration-500 h-full">
+      {/* Image – significantly taller */}
+      <div className="relative h-[360px] sm:h-[460px] md:h-[520px] lg:h-[580px] overflow-hidden">
         <img
           src={member.image}
           alt={member.name}
-          className="w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105"
+          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/90 via-transparent to-transparent pointer-events-none" />
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
       </div>
 
       {/* Content */}
-      <div className="p-7 flex flex-col flex-1">
+      <div className="p-7 sm:p-8 flex flex-col flex-1">
         <h3 className="text-xl font-black text-white mb-1 group-hover:text-sky-400 transition-colors">
           {member.name}
         </h3>
@@ -505,7 +505,8 @@ export default function AboutPage() {
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {/* Full‑width grid with reduced gap, no inner max-width wrapper */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {team.map((member) => (
                   <TeamCard key={member.name} member={member} />
                 ))}
@@ -552,12 +553,12 @@ export default function AboutPage() {
                     className="group relative rounded-3xl overflow-hidden bg-white/[0.04] border border-white/10 hover:border-sky-400/30 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)] transition-all duration-500"
                   >
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
-                    <div className="relative h-80 overflow-hidden bg-[#050E1F]">
+                    <div className="relative h-80 overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="w-full h-full object-contain object-center bg-[#050E1F] transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
                     </div>
@@ -586,12 +587,12 @@ export default function AboutPage() {
                     className="group relative rounded-3xl overflow-hidden bg-white/[0.04] border border-white/10 hover:border-sky-400/30 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)] transition-all duration-500"
                   >
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
-                    <div className="relative h-80 overflow-hidden bg-[#050E1F]">
+                    <div className="relative h-80 overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="w-full h-full object-contain object-center bg-[#050E1F] transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
                     </div>

@@ -2,7 +2,14 @@
 
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Globe, TrendingUp, Rocket, Building2, Network } from "lucide-react";
+import {
+  ArrowRight,
+  Globe,
+  TrendingUp,
+  Rocket,
+  Building2,
+  Network,
+} from "lucide-react";
 import { industries } from "@/lib/data";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -24,29 +31,20 @@ const cardGradients = [
 // Industry-specific premium images
 const imageMap: Record<string, string> = {
   "forex-brokers":
-    "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
-  "prop-firms":
-    "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80",
-  "fintech-startups":
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-  "trading-businesses":
-    "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=800&q=80",
-  "saas-platforms":
-    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
-};
+    "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=1200&q=80",
 
-// Ghost Candlesticks for background
-const ghostCandles = [
-  { left: "5%", top: "20%", h1: "160px", h2: "65px", delay: 0 },
-  { left: "15%", top: "40%", h1: "110px", h2: "45px", delay: 2 },
-  { left: "28%", top: "15%", h1: "190px", h2: "85px", delay: 1 },
-  { left: "42%", top: "50%", h1: "130px", h2: "55px", delay: 3 },
-  { left: "55%", top: "10%", h1: "210px", h2: "95px", delay: 0.5 },
-  { left: "65%", top: "35%", h1: "145px", h2: "60px", delay: 2.5 },
-  { left: "78%", top: "45%", h1: "115px", h2: "48px", delay: 1.5 },
-  { left: "88%", top: "18%", h1: "170px", h2: "72px", delay: 3.5 },
-  { left: "95%", top: "55%", h1: "135px", h2: "52px", delay: 0.8 },
-];
+  "prop-firms":
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+
+  "fintech-startups":
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80",
+
+  "trading-businesses":
+    "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1200&q=80",
+
+  "saas-platforms":
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
+};
 
 function IndustryCard({ industry, index }: { industry: any; index: number }) {
   const x = useMotionValue(0);
@@ -91,7 +89,7 @@ function IndustryCard({ industry, index }: { industry: any; index: number }) {
       }}
       className="group relative rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
     >
-      {/* TOP: Real Image + Gradient Overlay */}
+      {/* TOP: Real Image */}
       <div className="relative h-44 overflow-hidden">
         {/* Background Image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -101,11 +99,11 @@ function IndustryCard({ industry, index }: { industry: any; index: number }) {
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
 
-        {/* Gradient Overlay on image */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-65`} />
+        {/* ✅ Blue overlay removed. Keeping only subtle dark readability overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
 
         {/* Animated Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:24px_24px]" />
 
         {/* Floating Orbs */}
         <motion.div
@@ -116,7 +114,12 @@ function IndustryCard({ industry, index }: { industry: any; index: number }) {
         <motion.div
           className="absolute bottom-[-20px] left-[-20px] w-28 h-28 rounded-full bg-white/15 blur-2xl"
           animate={{ x: [0, -15, 0], y: [0, -15, 0], scale: [1, 1.3, 1] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
         />
 
         {/* Animated Chart Line */}
@@ -138,19 +141,7 @@ function IndustryCard({ industry, index }: { industry: any; index: number }) {
           />
         </svg>
 
-        {/* Big Icon Center */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ transform: "translateZ(40px)" }}
-        >
-          <motion.div
-            className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-xl"
-            whileHover={{ scale: 1.15, rotate: 8 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Icon size={30} className="text-white" />
-          </motion.div>
-        </div>
+        
 
         {/* Shine Effect on Hover */}
         <div
@@ -160,7 +151,7 @@ function IndustryCard({ industry, index }: { industry: any; index: number }) {
       </div>
 
       {/* BOTTOM: Content */}
-      <div className="relative bg-white px-6 pt-6 pb-7">
+      <div className="relative bg-[#16223A] px-6 pt-6 pb-7">
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           style={{
@@ -172,27 +163,30 @@ function IndustryCard({ industry, index }: { industry: any; index: number }) {
           }}
         />
 
-        <h3 className="font-bold text-gray-900 text-base leading-tight mb-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="relative z-10 font-bold text-white text-base leading-tight mb-2 group-hover:text-sky-300 transition-colors">
           {industry.title}
         </h3>
-        <p className="text-slate-600 text-xs leading-relaxed line-clamp-2 mb-4">
+        <p className="relative z-10 text-slate-300 text-xs leading-relaxed line-clamp-2 mb-4">
           {industry.shortDesc}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="relative z-10 flex flex-wrap gap-1.5 mb-4">
           {industry.solutions.slice(0, 3).map((s: string) => (
             <span
               key={s}
-              className="text-[9px] px-2 py-1 rounded-md bg-blue-50 border border-blue-100 text-blue-600 font-medium"
+              className="text-[9px] px-2 py-1 rounded-md bg-sky-400/10 border border-sky-400/20 text-sky-300 font-medium"
             >
               {s.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
             </span>
           ))}
         </div>
 
-        <div className="flex items-center text-blue-600 text-xs font-semibold group-hover:gap-2 transition-all">
+        <div className="relative z-10 flex items-center text-sky-300 text-xs font-semibold group-hover:gap-2 transition-all">
           Explore solutions
-          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          <ArrowRight
+            size={14}
+            className="group-hover:translate-x-1 transition-transform"
+          />
         </div>
       </div>
     </motion.div>
@@ -217,7 +211,12 @@ export default function IndustriesSection() {
       <motion.div
         className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-indigo-500/15 blur-[130px] pointer-events-none"
         animate={{ x: [0, -40, 0], y: [0, -30, 0], scale: [1, 1.15, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
       />
 
       {/* Animated Grid */}

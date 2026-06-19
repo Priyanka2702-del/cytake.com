@@ -15,17 +15,29 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const imageMap: Record<string, string> = {
-  "forex-broker-infrastructure": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
-  "prop-firm-technology": "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800&q=80",
-  "trading-crm-systems": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-  "trader-ib-portals": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80",
-  "payment-gateway-integration": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&q=80",
-  "vps-cloud-infrastructure": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
-  "ai-automation-systems": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
-  "white-label-trading": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80",
-  "risk-management-systems": "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=800&q=80",
-  "trading-platform-integration": "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=800&q=80",
-  "affiliate-referral-systems": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
+  "forex-broker-infrastructure": "/stack/forex-broker.jpg",
+
+  "prop-firm-technology": "/stack/prop-firm.jpg",
+
+  "trading-crm-systems": "/stack/trading-crm.jpg",
+
+  "trader-ib-portals": "/stack/trader-portal.jpg",
+
+  "payment-gateway-integration": "/stack/payment-gateway.jpg",
+
+  "vps-cloud-infrastructure": "/stack/cloud-infrastructure.jpg",
+
+  "ai-automation-systems": "/stack/ai-automation.jpg",
+
+  "white-label-trading": "/stack/white-label-trading.jpg",
+
+  "risk-management-systems": "/stack/risk-management.jpg",
+
+  "trading-platform-integration": "/stack/trading-platform.jpg",
+
+  "affiliate-referral-systems": "/stack/affiliate-referral.jpg",
+
+  "ai-trading-robot": "/stack/ai-trading-robot.jpg",
 };
 
 export default function SolutionsSection() {
