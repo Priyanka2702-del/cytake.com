@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Send, Globe, TrendingUp, Laptop, Lightbulb } from "lucide-react";
 
@@ -101,7 +100,7 @@ export default function CareersPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
                   whileHover={{ y: -5 }}
-                  onClick={scrollToForm} // <-- Kisi bhi job card pe click karo, form pe scroll hoga
+                  onClick={scrollToForm}
                   className="group cursor-pointer rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-sky-400/40 hover:bg-white/[0.05] transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
@@ -161,7 +160,7 @@ export default function CareersPage() {
             </div>
           </section>
 
-          {/* Application Form (ID added for scroll) */}
+          {/* Application Form */}
           <section
             id="apply-form"
             className="max-w-4xl mx-auto px-6 mt-32 mb-16 scroll-mt-28"
@@ -244,8 +243,6 @@ export default function CareersPage() {
           </section>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }
