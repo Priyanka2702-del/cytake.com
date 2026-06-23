@@ -1,117 +1,134 @@
-import type { Metadata } from "next";
+"use client";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { solutions } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, Server, TrendingUp, Users, BarChart3, CreditCard, Cloud, Bot, Layers, Shield, Cpu, Share2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Solutions",
-  description: "11 enterprise solutions for forex brokers, prop firms, and fintech businesses. From broker infrastructure to AI automation, payment gateways, and trading CRMs.",
+// Fallback image mapping (agar solution.image na ho to ye use hoga)
+const imageMap: Record<string, string> = {
+  "forex-broker-infrastructure": "/solutions/forex.jpg",
+  "prop-firm-technology": "/solutions/prop-firm.jpg",
+  "ai-trading-robot": "/solutions/ai-robot.jpg",
+  "trading-crm-systems": "/solutions/crm.jpg",
+  "trader-ib-portals": "/solutions/ib-portals.jpg",
+  "payment-gateway-integration": "/solutions/payment.jpg",
+  "vps-cloud-infrastructure": "/solutions/vps.jpg",
+  "ai-automation-systems": "/solutions/ai.jpg",
+  "white-label-trading": "/solutions/white-label.jpg",
+  "risk-management-systems": "/solutions/risk.jpg",
+  "trading-platform-integration": "/solutions/platform.jpg",
+  "affiliate-referral-systems": "/solutions/affiliate.jpg",
 };
 
-const iconMap: Record<string, React.ElementType> = {
-  "forex-broker-infrastructure": Server, "prop-firm-technology": TrendingUp,
-  "trading-crm-systems": Users, "trader-ib-portals": BarChart3,
-  "payment-gateway-integration": CreditCard, "vps-cloud-infrastructure": Cloud,
-  "ai-automation-systems": Bot, "white-label-trading": Layers,
-  "risk-management-systems": Shield, "trading-platform-integration": Cpu,
-  "affiliate-referral-systems": Share2,
-};
-
-const categories = [
-  { label: "Core Infrastructure", slugs: ["forex-broker-infrastructure", "prop-firm-technology", "white-label-trading"] },
-  { label: "Client Management", slugs: ["trading-crm-systems", "trader-ib-portals", "affiliate-referral-systems"] },
-  { label: "Payments & Risk", slugs: ["payment-gateway-integration", "risk-management-systems"] },
-  { label: "Technology & AI", slugs: ["vps-cloud-infrastructure", "ai-automation-systems", "trading-platform-integration"] },
-];
+// Default fallback image
+const DEFAULT_IMAGE = "/solutions/default.jpg";
 
 export default function SolutionsPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
-        {/* Hero */}
-        <section className="py-20 bg-slate-50 relative overflow-hidden">
-          <div className="absolute inset-0 grid-bg opacity-40" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/8 rounded-full blur-[100px]" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
-            <div className="inline-flex items-center gap-2 badge-glow px-4 py-1.5 rounded-full mb-5">
-              <span className="text-xs font-medium text-blue-600 tracking-wide">Enterprise Solutions</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-6">
-              Complete Forex & Fintech <br />
-              <span className="gradient-text">Infrastructure Stack</span>
-            </h1>
-            <p className="text-slate-500 text-xl max-w-3xl mx-auto mb-10">
-              11 purpose-built enterprise solutions for brokers, prop firms, and fintech businesses. From infrastructure to AI automation — everything under one roof.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/contact" className="btn-primary flex items-center gap-2 text-white rounded-xl px-8 py-4">
-                Get a Free Consultation <ArrowRight size={15} />
-              </Link>
-              <Link href="/contact#demo" className="btn-outline flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-medium text-slate-700 hover:text-gray-900">
-                Schedule Demo
-              </Link>
-            </div>
-          </div>
-        </section>
 
-        {/* Solutions by category */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {categories.map((cat) => {
-              const catSolutions = solutions.filter(s => cat.slugs.includes(s.slug));
-              return (
-                <div key={cat.label} className="mb-16 last:mb-0">
-                  <div className="flex items-center gap-4 mb-8">
-                    <h2 className="text-xl font-bold text-gray-900">{cat.label}</h2>
-                    <div className="flex-1 h-px bg-gradient-to-r from-blue-500/30 to-transparent" />
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {catSolutions.map((sol) => {
-                      const Icon = iconMap[sol.slug] || Server;
-                      return (
-                        <Link key={sol.slug} href={`/solutions/${sol.slug}`}
-                          className="card-glow rounded-2xl p-7 flex flex-col group"
-                        >
-                          <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${sol.color} flex items-center justify-center mb-5 shadow-lg transition-transform duration-300 group-hover:scale-110`}>
-                            <Icon size={20} className="text-gray-900" />
-                          </div>
-                          <div className="text-[10px] font-semibold text-blue-500 uppercase tracking-widest mb-1">{sol.category}</div>
-                          <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-200 transition-colors">{sol.title}</h3>
-                          <p className="text-slate-500 text-sm leading-relaxed flex-1">{sol.shortDesc}</p>
-                          <ul className="mt-5 space-y-1.5">
-                            {sol.features.slice(0, 3).map((f) => (
-                              <li key={f} className="flex items-start gap-2 text-xs text-slate-500">
-                                <div className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />{f}
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="flex items-center gap-1 mt-6 text-blue-500 group-hover:text-blue-600 transition-colors text-sm font-medium">
-                            View full details <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
+      <main className="min-h-screen bg-gradient-to-br from-[#020617] via-[#0A1628] to-[#020617]">
+        {/* Background */}
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 blur-[120px] rounded-full" />
+        </div>
 
-        {/* Bottom CTA */}
-        <section className="py-20 bg-slate-50 text-center">
-          <div className="max-w-2xl mx-auto px-4">
-            <h2 className="text-3xl font-black text-gray-900 mb-4">Not Sure Which Solution You Need?</h2>
-            <p className="text-slate-500 text-lg mb-8">Our team will analyse your requirements and recommend the right stack for your business. Free, no obligation.</p>
-            <Link href="/contact" className="btn-primary flex items-center gap-2 text-white">
-              Talk to an Expert <ArrowRight size={16} />
-            </Link>
-          </div>
-        </section>
+        <div className="relative z-10 pt-32 pb-24">
+          {/* Hero */}
+          <section className="text-center px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-flex items-center px-4 py-2 rounded-full border border-sky-500/20 bg-sky-500/10 text-sky-400 text-sm font-semibold mb-6">
+                Enterprise Solutions
+              </span>
+
+              <h1 className="text-5xl md:text-6xl font-black text-white mb-6">
+                Our Solutions
+              </h1>
+
+              <p className="max-w-3xl mx-auto text-slate-400 text-lg">
+                Powerful infrastructure, CRM systems, AI automation, trading
+                technology and enterprise-grade solutions built for modern
+                financial businesses.
+              </p>
+            </motion.div>
+          </section>
+
+          {/* Solutions Grid */}
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {solutions.map((solution, index) => {
+                // Image priority: solution.image -> imageMap -> default
+                const imageSrc =
+                  (solution as { image?: string }).image ||
+                  imageMap[solution.slug] ||
+                  DEFAULT_IMAGE;
+
+                return (
+                  <motion.div
+                    key={solution.slug}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <Link href={`/solutions/${solution.slug}`}>
+                      <div className="group h-full rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm overflow-hidden hover:border-sky-400/40 hover:bg-white/[0.05] transition-all duration-300 hover:-translate-y-2">
+                        {/* Image */}
+                        <div className="h-56 overflow-hidden bg-[#050E1F]">
+                          <img
+                            src={imageSrc}
+                            alt={solution.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = DEFAULT_IMAGE;
+                            }}
+                          />
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6">
+                          <div className="mb-3">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-sky-400">
+                              {solution.category}
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl font-bold text-white mb-3">
+                            {solution.title}
+                          </h3>
+
+                          <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                            {solution.shortDesc}
+                          </p>
+
+                          <div className="flex items-center gap-2 text-sky-400 font-semibold">
+                            Learn More
+                            <ArrowRight
+                              size={16}
+                              className="group-hover:translate-x-1 transition"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </section>
+        </div>
       </main>
+
       <Footer />
     </>
   );
