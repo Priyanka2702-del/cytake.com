@@ -34,7 +34,7 @@ function TiltCard({ children, delay }: { children: React.ReactNode; delay: numbe
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: "800px" }}
-      className="relative rounded-2xl cursor-pointer group"
+      className="relative rounded-2xl cursor-pointer group h-full"
     >
       {/* Glow Follow Effect */}
       <motion.div
@@ -47,9 +47,9 @@ function TiltCard({ children, delay }: { children: React.ReactNode; delay: numbe
         }}
       />
 
-      {/* Card Content — token glass */}
+      {/* Card Content — token glass, equal height */}
       <div
-        className="relative rounded-2xl p-5 backdrop-blur-sm border shadow-lg transition-all duration-300 bg-[var(--section-card-bg)] border-[var(--section-card-border)] group-hover:border-sky-400/40 group-hover:shadow-[0_20px_50px_rgba(56,189,248,0.15)]"
+        className="relative rounded-2xl p-5 backdrop-blur-sm border shadow-lg transition-all duration-300 bg-[var(--section-card-bg)] border-[var(--section-card-border)] group-hover:border-sky-400/40 group-hover:shadow-[0_20px_50px_rgba(56,189,248,0.15)] h-full flex flex-col"
         style={{ transform: "translateZ(20px)" }}
       >
         {children}
@@ -190,19 +190,19 @@ export default function WhyCytakeSection() {
             </Link>
           </motion.div>
 
-          {/* Right Side — 3D Tilt Cards */}
-          <div className="grid grid-cols-2 gap-4" style={{ perspective: "1000px" }}>
+          {/* Right Side — 3D Tilt Cards (EQUAL HEIGHT) */}
+          <div className="grid grid-cols-2 gap-4 items-stretch" style={{ perspective: "1000px" }}>
             {whyPoints.map((point, i) => {
               const Icon = icons[i] || Shield;
               return (
                 <TiltCard key={point.title} delay={i * 0.08}>
-                  <div className="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-400/30 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-sky-500/25 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-400/30 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-sky-500/25 transition-all duration-300 shrink-0">
                     <Icon size={16} className="text-sky-500" />
                   </div>
                   <h4 className="font-bold text-[var(--section-text)] text-sm mb-1.5">
                     {point.title}
                   </h4>
-                  <p className="text-[var(--section-text-muted)] text-xs leading-relaxed">
+                  <p className="text-[var(--section-text-muted)] text-xs leading-relaxed line-clamp-3">
                     {point.desc}
                   </p>
                 </TiltCard>
