@@ -27,6 +27,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { solutions, industries } from "@/lib/data";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const iconMap: Record<string, React.ElementType> = {
   "forex-broker-infrastructure": Server,
@@ -391,8 +392,9 @@ export default function Navbar() {
                 </Link>
               </div>
 
-              {/* CTA Button */}
-              <div className="hidden lg:flex items-center">
+              {/* CTA Button + Theme Toggle */}
+              <div className="hidden lg:flex items-center gap-3">
+                <ThemeToggle />
                 <Link
                   href="/demo"
                   className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-sky-500 to-sky-400 hover:shadow-[0_6px_25px_rgba(56,189,248,0.5)] hover:-translate-y-0.5 transition-all duration-300"
@@ -401,36 +403,39 @@ export default function Navbar() {
                 </Link>
               </div>
 
-              {/* Mobile Toggle */}
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label="Toggle navigation menu"
-                className="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700 hover:text-blue-600 rounded-xl hover:bg-blue-50 transition-all border border-sky-100 bg-white/70"
-              >
-                <AnimatePresence mode="wait">
-                  {mobileOpen ? (
-                    <motion.div
-                      key="x"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.15 }}
-                    >
-                      <X size={21} />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="m"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.15 }}
-                    >
-                      <Menu size={21} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </button>
+              {/* Mobile Toggle + Theme Toggle */}
+              <div className="lg:hidden flex items-center gap-2">
+                <ThemeToggle />
+                <button
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  aria-label="Toggle navigation menu"
+                  className="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-blue-600 rounded-xl hover:bg-blue-50 transition-all border border-sky-100 bg-white/70"
+                >
+                  <AnimatePresence mode="wait">
+                    {mobileOpen ? (
+                      <motion.div
+                        key="x"
+                        initial={{ rotate: -90, opacity: 0 }}
+                        animate={{ rotate: 0, opacity: 1 }}
+                        exit={{ rotate: 90, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <X size={21} />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="m"
+                        initial={{ rotate: 90, opacity: 0 }}
+                        animate={{ rotate: 0, opacity: 1 }}
+                        exit={{ rotate: -90, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <Menu size={21} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </div>
             </div>
           </div>
         </div>

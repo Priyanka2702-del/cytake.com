@@ -15,9 +15,14 @@ const companies = [
 
 export default function FeaturedCompanies() {
   return (
-    <section className="relative py-16 overflow-hidden bg-gradient-to-br from-[#020617] via-[#0A1628] to-[#020617]">
-
-      {/* ============ SAME BACKGROUND AS STATSSECTION ============ */}
+    <section className="relative py-16 overflow-hidden bg-[var(--section-bg-1)]">
+      {/* gradient overlay via tokens */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(135deg, var(--section-bg-1) 0%, var(--section-bg-2) 50%, var(--section-bg-1) 100%)`,
+        }}
+      />
 
       {/* Glowing Orbs */}
       <motion.div
@@ -33,7 +38,11 @@ export default function FeaturedCompanies() {
 
       {/* Animated Grid */}
       <motion.div
-        className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:60px_60px]"
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(to right, var(--section-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--section-grid) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
         animate={{ backgroundPosition: ["0px 0px", "60px 60px"] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
@@ -63,12 +72,12 @@ export default function FeaturedCompanies() {
 
         {/* Heading */}
         <div className="text-center mb-10">
-          <p className="text-xs font-bold text-sky-400 uppercase tracking-[0.3em] mb-3">
+          <p className="text-xs font-bold text-sky-500 uppercase tracking-[0.3em] mb-3">
             ✦ As Featured In ✦
           </p>
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-[var(--section-text)] tracking-tight">
             Trusted by{" "}
-            <span className="bg-gradient-to-r from-sky-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">
               industry leaders
             </span>
           </h2>
@@ -78,21 +87,20 @@ export default function FeaturedCompanies() {
         <div className="relative flex overflow-hidden">
 
           {/* Left Fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-40 z-10 pointer-events-none bg-gradient-to-r from-[#020617] to-transparent" />
+          <div
+            className="absolute left-0 top-0 bottom-0 w-40 z-10 pointer-events-none"
+            style={{ background: `linear-gradient(to right, var(--section-fade), transparent)` }}
+          />
 
           <motion.div
             className="flex gap-6 whitespace-nowrap py-2"
             animate={{ x: [0, -1800] }}
-            transition={{
-              duration: 35,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
           >
             {[...companies, ...companies].map((company, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 px-6 py-3 bg-white/[0.04] border border-white/10 rounded-full backdrop-blur-md min-w-fit hover:bg-white/10 hover:border-sky-400/30 hover:shadow-[0_8px_30px_rgba(56,189,248,0.15)] transition-all duration-300 cursor-default group"
+                className="flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-md min-w-fit transition-all duration-300 cursor-default group bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/40 hover:shadow-[0_8px_30px_rgba(56,189,248,0.15)]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -100,7 +108,7 @@ export default function FeaturedCompanies() {
                   alt={company.name}
                   className="h-6 w-6 object-contain rounded bg-white/10 p-0.5"
                 />
-                <span className="text-sm font-black text-slate-300 tracking-wider uppercase group-hover:text-white transition-colors">
+                <span className="text-sm font-black tracking-wider uppercase transition-colors text-[var(--section-text-muted)] group-hover:text-[var(--section-text)]">
                   {company.name}
                 </span>
               </div>
@@ -108,7 +116,10 @@ export default function FeaturedCompanies() {
           </motion.div>
 
           {/* Right Fade */}
-          <div className="absolute right-0 top-0 bottom-0 w-40 z-10 pointer-events-none bg-gradient-to-l from-[#020617] to-transparent" />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-40 z-10 pointer-events-none"
+            style={{ background: `linear-gradient(to left, var(--section-fade), transparent)` }}
+          />
 
         </div>
       </div>

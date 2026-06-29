@@ -16,35 +16,29 @@ const iconMap: Record<string, React.ElementType> = {
 
 const imageMap: Record<string, string> = {
   "forex-broker-infrastructure": "/stack/forex-broker.jpg",
-
   "prop-firm-technology": "/stack/prop-firm.jpg",
-
   "trading-crm-systems": "/stack/trading-crm.jpg",
-
   "trader-ib-portals": "/stack/trader-portal.jpg",
-
   "payment-gateway-integration": "/stack/payment-gateway.jpg",
-
   "vps-cloud-infrastructure": "/stack/cloud-infrastructure.jpg",
-
   "ai-automation-systems": "/stack/ai-automation.jpg",
-
   "white-label-trading": "/stack/white-label-trading.jpg",
-
   "risk-management-systems": "/stack/risk-management.jpg",
-
   "trading-platform-integration": "/stack/trading-platform.jpg",
-
   "affiliate-referral-systems": "/stack/affiliate-referral.jpg",
-
   "ai-trading-robot": "/stack/ai-trading-robot.jpg",
 };
 
 export default function SolutionsSection() {
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#020617] via-[#0A1628] to-[#020617]">
-
-      {/* ============ EXACT SAME BACKGROUND AS STATSSECTION ============ */}
+    <section className="py-24 relative overflow-hidden bg-[var(--section-bg-1)]">
+      {/* gradient overlay via tokens */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(135deg, var(--section-bg-1) 0%, var(--section-bg-2) 50%, var(--section-bg-1) 100%)`,
+        }}
+      />
 
       {/* Glowing Orbs */}
       <motion.div
@@ -60,7 +54,11 @@ export default function SolutionsSection() {
 
       {/* Animated Grid */}
       <motion.div
-        className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:60px_60px]"
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(to right, var(--section-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--section-grid) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
         animate={{ backgroundPosition: ["0px 0px", "60px 60px"] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
@@ -74,28 +72,13 @@ export default function SolutionsSection() {
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 800" preserveAspectRatio="none">
           <motion.path
             d="M0,500 L70,470 L140,510 L210,440 L280,480 L350,400 L420,450 L490,370 L560,420 L630,340 L700,390 L770,310 L840,360 L910,290 L980,340 L1050,270 L1120,320 L1190,250 L1260,300 L1330,240 L1400,290"
-            fill="none"
-            stroke="#38BDF8"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.5"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 3, ease: "easeInOut" }}
+            fill="none" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3, ease: "easeInOut" }}
           />
           {[70,210,350,490,630,770,910,1050,1190,1330].map((cx, i) => (
             <g key={i}>
-              <line
-                x1={cx} y1={[455,425,385,355,325,295,275,255,235,205][i]}
-                x2={cx} y2={[525,495,495,465,435,405,375,355,335,305][i]}
-                stroke="#22C55E" strokeWidth="1.5" opacity="0.5"
-              />
-              <rect
-                x={cx - 6} y={[470,440,400,370,340,310,290,270,250,220][i]}
-                width="12" height="30"
-                fill="#22C55E" opacity="0.4" rx="1.5"
-              />
+              <line x1={cx} y1={[455,425,385,355,325,295,275,255,235,205][i]} x2={cx} y2={[525,495,495,465,435,405,375,355,335,305][i]} stroke="#22C55E" strokeWidth="1.5" opacity="0.5" />
+              <rect x={cx - 6} y={[470,440,400,370,340,310,290,270,250,220][i]} width="12" height="30" fill="#22C55E" opacity="0.4" rx="1.5" />
             </g>
           ))}
         </svg>
@@ -108,15 +91,7 @@ export default function SolutionsSection() {
         transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
       >
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 800" preserveAspectRatio="none">
-          <path
-            d="M0,640 L80,615 L160,655 L240,595 L320,635 L400,565 L480,610 L560,540 L640,585 L720,515 L800,560 L880,490 L960,535 L1040,465 L1120,510 L1200,440 L1280,485 L1360,415 L1400,455"
-            fill="none"
-            stroke="#6366F1"
-            strokeWidth="1.5"
-            strokeDasharray="6 10"
-            strokeLinecap="round"
-            opacity="0.5"
-          />
+          <path d="M0,640 L80,615 L160,655 L240,595 L320,635 L400,565 L480,610 L560,540 L640,585 L720,515 L800,560 L880,490 L960,535 L1040,465 L1120,510 L1200,440 L1280,485 L1360,415 L1400,455" fill="none" stroke="#6366F1" strokeWidth="1.5" strokeDasharray="6 10" strokeLinecap="round" opacity="0.5" />
         </svg>
       </motion.div>
 
@@ -132,10 +107,7 @@ export default function SolutionsSection() {
           style={{ top: dot.top, left: "-2%" }}
           animate={{ x: ["0vw", "104vw"], opacity: [0, 1, 1, 0] }}
           transition={{
-            duration: dot.duration,
-            repeat: Infinity,
-            ease: "linear",
-            delay: dot.delay,
+            duration: dot.duration, repeat: Infinity, ease: "linear", delay: dot.delay,
             opacity: { duration: dot.duration, times: [0, 0.1, 0.9, 1], repeat: Infinity },
           }}
         />
@@ -146,23 +118,20 @@ export default function SolutionsSection() {
 
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
-            <span className="text-xs font-bold text-sky-400 tracking-wide uppercase">Complete Stack</span>
+          <div className="inline-flex items-center gap-2 bg-[var(--section-card-bg)] border border-[var(--section-card-border)] backdrop-blur-sm px-4 py-1.5 rounded-full mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
+            <span className="text-xs font-bold text-sky-500 tracking-wide uppercase">Complete Stack</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-black text-[var(--section-text)] mb-4">
             Everything Your Trading Business{" "}
-            <span className="bg-gradient-to-r from-sky-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">
               Needs to Succeed
             </span>
           </h2>
-          <p className="text-slate-400 font-medium text-lg max-w-2xl mx-auto">
+          <p className="text-[var(--section-text-muted)] font-medium text-lg max-w-2xl mx-auto">
             11 enterprise solutions built specifically for forex brokers, prop firms, and fintech businesses.
           </p>
         </motion.div>
@@ -176,35 +145,23 @@ export default function SolutionsSection() {
             return (
               <motion.div
                 key={sol.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.04 }}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.04 }}
               >
                 <Link
                   href={`/solutions/${sol.slug}`}
-                  className="relative group block rounded-2xl overflow-hidden h-64 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
+                  className="relative group block rounded-2xl overflow-hidden h-64 border border-[var(--section-card-border)] shadow-[0_8px_30px_rgba(0,0,0,0.2)]"
                 >
                   {/* Background Image */}
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${image})` }}
-                  />
+                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${image})` }} />
 
-                  {/* Default Gradient Overlay */}
+                  {/* Default Gradient Overlay (image cards stay dark for text readability) */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
-
-                  {/* Dark Overlay on Hover */}
                   <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   {/* DEFAULT CONTENT */}
                   <div className="absolute inset-0 p-5 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
-                    <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2">
-                      {sol.category}
-                    </div>
-                    <h3 className="font-black text-white text-lg leading-tight">
-                      {sol.title}
-                    </h3>
+                    <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2">{sol.category}</div>
+                    <h3 className="font-black text-white text-lg leading-tight">{sol.title}</h3>
                   </div>
 
                   {/* HOVER CONTENT */}
@@ -213,15 +170,9 @@ export default function SolutionsSection() {
                       <Icon size={18} className="text-white" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2">
-                        {sol.category}
-                      </div>
-                      <h3 className="font-black text-white text-base leading-tight mb-3">
-                        {sol.title}
-                      </h3>
-                      <p className="text-slate-300 text-xs leading-relaxed mb-3">
-                        {sol.shortDesc}
-                      </p>
+                      <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2">{sol.category}</div>
+                      <h3 className="font-black text-white text-base leading-tight mb-3">{sol.title}</h3>
+                      <p className="text-slate-300 text-xs leading-relaxed mb-3">{sol.shortDesc}</p>
                       <div className="flex items-center gap-1 text-sky-400 text-xs font-bold">
                         Learn more <ArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -235,15 +186,12 @@ export default function SolutionsSection() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
           className="text-center mt-12"
         >
           <Link
             href="/solutions"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold text-black bg-white hover:bg-gray-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold transition-colors shadow-[0_0_20px_rgba(37,99,235,0.2)] bg-[var(--cta-white-bg)] text-[var(--cta-white-text)] hover:bg-[var(--cta-white-hover)]"
           >
             Explore all 11 solutions in detail <ArrowRight size={14} />
           </Link>
