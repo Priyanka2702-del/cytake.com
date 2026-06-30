@@ -86,105 +86,150 @@ export default function ContactSection() {
 
         <div className="grid lg:grid-cols-5 gap-10">
 
-          {/* Info */}
+          {/* Info Cards */}
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2 space-y-5">
             {[
               { icon: Mail, label: "Email Us", value: "info@cytake.com", href: "mailto:info@cytake.com" },
               { icon: Phone, label: "WhatsApp Support", value: "Available 24/7", href: "https://wa.me/1234567890" },
               { icon: Globe, label: "Global Operations", value: "50+ Countries Served", href: "/about" },
             ].map(({ icon: Icon, label, value, href }) => (
-              <motion.a key={label} href={href} whileHover={{ y: -4 }}
-                className="rounded-2xl p-5 flex items-center gap-4 group block backdrop-blur-sm shadow-md transition-all bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:shadow-xl hover:border-sky-400/30">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform">
-                  <Icon size={18} className="text-white" />
-                </div>
-                <div>
-                  <div className="text-xs text-[var(--section-text-muted)] mb-0.5">{label}</div>
-                  <div className="text-sm font-bold text-[var(--section-text)]">{value}</div>
+              <motion.a 
+                key={label} 
+                href={href} 
+                whileHover={{ y: -4 }}
+                className="group relative block rounded-2xl p-5"
+              >
+                {/* Shadow layers */}
+                <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                  shadow-[0_4px_20px_rgba(0,0,0,0.1),0_8px_30px_rgba(0,0,0,0.08)]
+                  group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.2),0_0_30px_rgba(56,189,248,0.1)]"
+                />
+                
+                {/* Card body - NO BORDER, just glass */}
+                <div className="relative flex items-center gap-4 rounded-2xl p-5 h-full
+                  backdrop-blur-xl
+                  bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-white/[0.01]
+                  transition-all duration-500
+                  group-hover:from-white/[0.1] group-hover:via-sky-500/[0.02] group-hover:to-indigo-500/[0.02]"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center shrink-0 shadow-lg group-hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-all duration-500">
+                    <Icon size={18} className="text-white" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-[var(--section-text-muted)] mb-0.5">{label}</div>
+                    <div className="text-sm font-bold text-[var(--section-text)] group-hover:text-white transition-colors duration-300">{value}</div>
+                  </div>
                 </div>
               </motion.a>
             ))}
 
-            <div className="rounded-2xl p-6 backdrop-blur-sm bg-[var(--section-card-bg)] border border-[var(--section-card-border)]">
-              <h4 className="text-sm font-black text-[var(--section-text)] mb-3">What to Expect</h4>
-              <ul className="space-y-2.5">
-                {["Response within 2 business hours", "Free technical consultation", "No obligation — just a conversation", "Custom proposal within 24 hours"].map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-[var(--section-text-muted)]">
-                    <CheckCircle size={14} className="text-sky-500 mt-0.5 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            {/* What to Expect Card */}
+            <div className="group relative rounded-2xl">
+              {/* Shadow */}
+              <div className="absolute inset-0 rounded-2xl pointer-events-none
+                shadow-[0_4px_20px_rgba(0,0,0,0.1),0_8px_30px_rgba(0,0,0,0.08)]"
+              />
+              
+              <div className="relative rounded-2xl p-6
+                backdrop-blur-xl
+                bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-white/[0.01]
+              ">
+                <h4 className="text-sm font-black text-[var(--section-text)] mb-4">What to Expect</h4>
+                <ul className="space-y-3">
+                  {["Response within 2 business hours", "Free technical consultation", "No obligation — just a conversation", "Custom proposal within 24 hours"].map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-[var(--section-text-muted)]">
+                      <CheckCircle size={14} className="text-sky-500 mt-0.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
 
-          {/* Form */}
+          {/* Form Card */}
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-3">
-            <div className="rounded-3xl p-8 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] bg-[var(--section-card-bg)] border border-[var(--section-card-border)]">
-              {sent ? (
-                <div className="text-center py-12">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <CheckCircle size={28} className="text-white" />
-                  </motion.div>
-                  <h3 className="text-xl font-black text-[var(--section-text)] mb-2">Message Sent!</h3>
-                  <p className="text-[var(--section-text-muted)]">Our team will get back to you within 2 hours.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Full Name *</label>
-                      <input name="name" value={form.name} onChange={handleChange} required placeholder="John Mitchell" className={fieldClass} />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Email *</label>
-                      <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="john@company.com" className={fieldClass} />
-                    </div>
+            <div className="group relative">
+              {/* ── Layer 1: Outer Glow (hover) ── */}
+              <div className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] pointer-events-none bg-gradient-to-br from-sky-400/20 via-blue-500/10 to-indigo-400/20" />
+
+              {/* ── Layer 2: Deep Floating Shadow ── */}
+              <div className="absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500
+                shadow-[0_20px_60px_rgba(0,0,0,0.25),0_0_40px_rgba(0,0,0,0.1)]
+                group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.35),0_0_60px_rgba(56,189,248,0.08)]"
+              />
+
+              {/* ── Main Form Container ── */}
+              <div className="relative rounded-3xl p-8 backdrop-blur-2xl
+                bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-white/[0.01]
+                transition-all duration-500
+                group-hover:from-white/[0.1] group-hover:via-sky-500/[0.02] group-hover:to-indigo-500/[0.02]
+              ">
+                {sent ? (
+                  <div className="text-center py-12">
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200 }}
+                      className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(56,189,248,0.4)]">
+                      <CheckCircle size={28} className="text-white" />
+                    </motion.div>
+                    <h3 className="text-xl font-black text-[var(--section-text)] mb-2">Message Sent!</h3>
+                    <p className="text-[var(--section-text-muted)]">Our team will get back to you within 2 hours.</p>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Company</label>
-                      <input name="company" value={form.company} onChange={handleChange} placeholder="Your Company Ltd" className={fieldClass} />
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Full Name *</label>
+                        <input name="name" value={form.name} onChange={handleChange} required placeholder="John Mitchell" className={fieldClass} />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Email *</label>
+                        <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="john@company.com" className={fieldClass} />
+                      </div>
                     </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Phone / WhatsApp</label>
-                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="+1 234 567 890" className={fieldClass} />
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Company</label>
+                        <input name="company" value={form.company} onChange={handleChange} placeholder="Your Company Ltd" className={fieldClass} />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Phone / WhatsApp</label>
+                        <input name="phone" value={form.phone} onChange={handleChange} placeholder="+1 234 567 890" className={fieldClass} />
+                      </div>
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Solution of Interest</label>
-                    <select name="solution" value={form.solution} onChange={handleChange} className={fieldClass}>
-                      <option value="" className="bg-[var(--field-option-bg)]">Select a solution…</option>
-                      {solutions.map((s) => <option key={s.slug} value={s.slug} className="bg-[var(--field-option-bg)]">{s.title}</option>)}
-                      <option value="general" className="bg-[var(--field-option-bg)]">General Inquiry</option>
-                    </select>
-                  </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Solution of Interest</label>
+                      <select name="solution" value={form.solution} onChange={handleChange} className={fieldClass}>
+                        <option value="" className="bg-[var(--field-option-bg)]">Select a solution…</option>
+                        {solutions.map((s) => <option key={s.slug} value={s.slug} className="bg-[var(--field-option-bg)]">{s.title}</option>)}
+                        <option value="general" className="bg-[var(--field-option-bg)]">General Inquiry</option>
+                      </select>
+                    </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Message *</label>
-                    <textarea name="message" value={form.message} onChange={handleChange} required rows={4} placeholder="Tell us about your project, requirements, or questions…" className={`${fieldClass} resize-none`} />
-                  </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-[var(--section-text-muted)] mb-1.5">Message *</label>
+                      <textarea name="message" value={form.message} onChange={handleChange} required rows={4} placeholder="Tell us about your project, requirements, or questions…" className={`${fieldClass} resize-none`} />
+                    </div>
 
-                  <button type="submit" disabled={loading}
-                    className="w-full flex items-center justify-center gap-2 font-bold rounded-xl px-6 py-3.5 disabled:opacity-60 transition-all shadow-[0_0_20px_rgba(37,99,235,0.15)] bg-[var(--cta-white-bg)] text-[var(--cta-white-text)] hover:bg-[var(--cta-white-hover)]">
-                    {loading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin" />
-                        Sending…
-                      </>
-                    ) : (
-                      <>Send Message <ArrowRight size={14} /></>
-                    )}
-                  </button>
+                    <button type="submit" disabled={loading}
+                      className="w-full flex items-center justify-center gap-2 font-bold rounded-xl px-6 py-3.5 disabled:opacity-60 transition-all shadow-[0_0_20px_rgba(37,99,235,0.15)] bg-[var(--cta-white-bg)] text-[var(--cta-white-text)] hover:bg-[var(--cta-white-hover)] hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+                      {loading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin" />
+                          Sending…
+                        </>
+                      ) : (
+                        <>Send Message <ArrowRight size={14} /></>
+                      )}
+                    </button>
 
-                  <p className="text-xs text-[var(--section-text-muted)] text-center">
-                    We respond within 2 hours. 24/7 emergency support available.
-                  </p>
-                </form>
-              )}
+                    <p className="text-xs text-[var(--section-text-muted)] text-center">
+                      We respond within 2 hours. 24/7 emergency support available.
+                    </p>
+                  </form>
+                )}
+              </div>
             </div>
           </motion.div>
         </div>

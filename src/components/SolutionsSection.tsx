@@ -136,8 +136,8 @@ export default function SolutionsSection() {
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {/* Cards Grid — Premium with Multi-Layer Shadow */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {solutions.map((sol, i) => {
             const Icon = iconMap[sol.slug] || Server;
             const image = imageMap[sol.slug] || "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80";
@@ -145,27 +145,51 @@ export default function SolutionsSection() {
             return (
               <motion.div
                 key={sol.slug}
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.04 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                className="relative group h-64"
               >
+                {/* ── Layer 1: Outer Gradient Glow Border (hover) ── */}
+                <div className="absolute -inset-[1.5px] rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[3px] pointer-events-none bg-gradient-to-br from-sky-400/50 via-blue-500/30 to-indigo-500/50" />
+
+                {/* ── Layer 2: Deep Multi-Tier Shadow ── */}
+                <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                  shadow-[0_4px_15px_rgba(0,0,0,0.15),0_10px_40px_rgba(0,0,0,0.12),0_2px_6px_rgba(0,0,0,0.1)]
+                  group-hover:shadow-[0_10px_40px_rgba(56,189,248,0.25),0_25px_70px_rgba(56,189,248,0.15),0_5px_15px_rgba(0,0,0,0.3),0_0_100px_rgba(56,189,248,0.08)]"
+                />
+
                 <Link
                   href={`/solutions/${sol.slug}`}
-                  className="relative group block rounded-2xl overflow-hidden h-64 border border-[var(--section-card-border)] shadow-[0_8px_30px_rgba(0,0,0,0.2)]"
+                  className="relative block rounded-2xl overflow-hidden h-full z-[3]
+                    border border-white/[0.1]
+                    group-hover:border-sky-400/40
+                    transition-all duration-500
+                    shadow-[inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(0,0,0,0.2)]
+                    group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(0,0,0,0.3),inset_0_0_30px_rgba(56,189,248,0.05)]"
                 >
                   {/* Background Image */}
                   <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${image})` }} />
 
-                  {/* Default Gradient Overlay (image cards stay dark for text readability) */}
+                  {/* Default Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
+
+                  {/* Hover Dark Overlay */}
                   <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
+                  {/* Top edge highlight */}
+                  <div className="absolute top-0 left-[15%] right-[15%] h-[1px] bg-gradient-to-r from-transparent via-sky-400/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[5]" />
+
                   {/* DEFAULT CONTENT */}
-                  <div className="absolute inset-0 p-5 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0">
-                    <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2">{sol.category}</div>
-                    <h3 className="font-black text-white text-lg leading-tight">{sol.title}</h3>
+                  <div className="absolute inset-0 p-5 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0 z-[4]">
+                    <div className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2 drop-shadow-lg">{sol.category}</div>
+                    <h3 className="font-black text-white text-lg leading-tight drop-shadow-lg">{sol.title}</h3>
                   </div>
 
                   {/* HOVER CONTENT */}
-                  <div className="absolute inset-0 p-5 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 p-5 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[4]">
                     <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${sol.color} flex items-center justify-center shadow-lg`}>
                       <Icon size={18} className="text-white" />
                     </div>

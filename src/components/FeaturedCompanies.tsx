@@ -100,17 +100,51 @@ export default function FeaturedCompanies() {
             {[...companies, ...companies].map((company, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-md min-w-fit transition-all duration-300 cursor-default group bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/40 hover:shadow-[0_8px_30px_rgba(56,189,248,0.15)]"
+                className="group relative flex items-center gap-3 px-6 py-3 rounded-full min-w-fit cursor-default"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`https://www.google.com/s2/favicons?domain=${company.domain}&sz=128`}
-                  alt={company.name}
-                  className="h-6 w-6 object-contain rounded bg-white/10 p-0.5"
+                {/* ── Layer 1: Outer Glow (hover) ── */}
+                <div className="absolute -inset-[1px] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] pointer-events-none bg-gradient-to-r from-sky-400/30 via-blue-500/20 to-indigo-400/30" />
+
+                {/* ── Layer 2: Deep Shadow ── */}
+                <div className="absolute inset-0 rounded-full pointer-events-none transition-all duration-500
+                  shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_16px_rgba(0,0,0,0.04)]
+                  group-hover:shadow-[0_8px_25px_rgba(56,189,248,0.12),0_15px_40px_rgba(56,189,248,0.08)]"
                 />
-                <span className="text-sm font-black tracking-wider uppercase transition-colors text-[var(--section-text-muted)] group-hover:text-[var(--section-text)]">
-                  {company.name}
-                </span>
+
+                {/* ── Layer 3: Shine Sweep ── */}
+                <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/[0.08] to-transparent skew-x-[-20deg]" />
+                </div>
+
+                {/* ── Card Body ── */}
+                <div className="relative flex items-center gap-3 z-[2]
+                  rounded-full px-6 py-3
+                  backdrop-blur-xl
+                  border border-white/[0.08]
+                  bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-white/[0.01]
+                  transition-all duration-500
+                  group-hover:border-sky-400/30
+                  group-hover:from-white/[0.1] group-hover:via-sky-500/[0.03] group-hover:to-indigo-500/[0.02]
+                  shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-1px_0_rgba(0,0,0,0.08)]
+                  group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(0,0,0,0.1)]"
+                >
+                  {/* Top highlight line */}
+                  <div className="absolute top-0 left-[20%] right-[20%] h-[1px] bg-gradient-to-r from-transparent via-sky-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${company.domain}&sz=128`}
+                    alt={company.name}
+                    className="relative z-10 h-6 w-6 object-contain rounded bg-white/10 p-0.5 group-hover:scale-110 transition-transform duration-300"
+                  />
+                  
+                  <span className="relative z-10 text-sm font-black tracking-wider uppercase transition-colors duration-300 text-[var(--section-text-muted)] group-hover:text-[var(--section-text)]">
+                    {company.name}
+                  </span>
+
+                  {/* Bottom accent line */}
+                  <div className="absolute bottom-0 left-[25%] right-[25%] h-[1px] bg-gradient-to-r from-transparent via-sky-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
               </div>
             ))}
           </motion.div>

@@ -42,32 +42,61 @@ function TeamCard({ member }: { member: any }) {
   const isLong = member.desc.length > MAX;
 
   return (
-    <div className="group flex flex-col rounded-3xl overflow-hidden transition-all duration-500 h-full border border-[var(--section-card-border)] hover:border-sky-400/30 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)]">
-      <div className="relative h-[360px] sm:h-[460px] md:h-[520px] lg:h-[580px] overflow-hidden">
-        <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/90 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+    <div className="group relative flex flex-col rounded-3xl overflow-hidden h-full">
+      {/* Outer Glow */}
+      <div className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] pointer-events-none bg-gradient-to-br from-sky-400/20 via-blue-500/10 to-indigo-400/20" />
+      
+      {/* Deep Shadow */}
+      <div className="absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500
+        shadow-[0_8px_30px_rgba(0,0,0,0.12),0_20px_60px_rgba(0,0,0,0.08)]
+        group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.25),0_0_40px_rgba(56,189,248,0.1)]"
+      />
+
+      {/* Shine Sweep */}
+      <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-10">
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/[0.05] to-transparent skew-x-[-20deg]" />
       </div>
 
-      <div className="p-7 sm:p-8 flex flex-col flex-1 bg-[var(--card-content-bg)]">
-        <h3 className="text-xl font-black mb-1 transition-colors text-[var(--card-content-text)] group-hover:text-sky-500">{member.name}</h3>
-        <p className="text-xs font-bold text-sky-500 uppercase tracking-widest mb-4">{member.role}</p>
-        <div className="w-10 h-0.5 bg-gradient-to-r from-sky-400 to-blue-600 mb-4 group-hover:w-20 transition-all duration-500" />
-        <p className="text-[var(--card-content-muted)] text-sm leading-relaxed mb-4 flex-1">
-          {isLong && !expanded ? `${member.desc.slice(0, MAX)}...` : member.desc}
-          {isLong && (
-            <button onClick={() => setExpanded(!expanded)} className="text-sky-500 font-bold ml-1 hover:text-sky-400 transition-colors focus:outline-none">
-              {expanded ? "Read less" : "Read more"}
-            </button>
-          )}
-        </p>
-        <div className="flex gap-2 pt-4 border-t border-[var(--section-card-border)]">
-          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full flex items-center justify-center transition-all bg-[var(--section-card-bg)] border border-[var(--section-card-border)] text-[var(--card-content-muted)] hover:bg-blue-600 hover:text-white hover:border-blue-600">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-          </a>
+      {/* Card Body */}
+      <div className="relative flex flex-col h-full overflow-hidden rounded-3xl
+        backdrop-blur-xl
+        bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-white/[0.01]
+        transition-all duration-500
+        group-hover:from-white/[0.1] group-hover:via-sky-500/[0.02] group-hover:to-indigo-500/[0.02]"
+      >
+        <div className="relative h-[360px] sm:h-[460px] md:h-[520px] lg:h-[580px] overflow-hidden">
+          <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/90 via-transparent to-transparent pointer-events-none" />
+          
+          {/* Top gradient bar */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
         </div>
+
+        <div className="p-7 sm:p-8 flex flex-col flex-1 bg-[var(--card-content-bg)]">
+          {/* FIXED: Removed group-hover:text-white, kept only sky-500 for name */}
+          <h3 className="text-xl font-black mb-1 transition-colors duration-300 text-[var(--card-content-text)] group-hover:text-sky-500">{member.name}</h3>
+          <p className="text-xs font-bold text-sky-500 uppercase tracking-widest mb-4">{member.role}</p>
+          <div className="w-10 h-0.5 bg-gradient-to-r from-sky-400 to-blue-600 mb-4 group-hover:w-20 transition-all duration-500" />
+          {/* FIXED: Removed group-hover:text-slate-300, kept original color */}
+          <p className="text-[var(--card-content-muted)] text-sm leading-relaxed mb-4 flex-1">
+            {isLong && !expanded ? `${member.desc.slice(0, MAX)}...` : member.desc}
+            {isLong && (
+              <button onClick={() => setExpanded(!expanded)} className="text-sky-500 font-bold ml-1 hover:text-sky-400 transition-colors focus:outline-none">
+                {expanded ? "Read less" : "Read more"}
+              </button>
+            )}
+          </p>
+          <div className="flex gap-2 pt-4 border-t border-white/10">
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full flex items-center justify-center transition-all bg-white/5 hover:bg-blue-600 hover:text-white text-[var(--card-content-muted)]">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom accent */}
+        <div className="absolute bottom-0 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-sky-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
   );
@@ -135,29 +164,54 @@ export default function AboutPage() {
                   </p>
                   <div className="flex gap-6 flex-wrap">
                     {[{ val: "200+", label: "Clients Served" }, { val: "50+", label: "Countries" }, { val: "7+", label: "Years" }].map((s, i) => (
-                      <div key={i} className="bg-[var(--section-card-bg)] border border-[var(--section-card-border)] rounded-2xl px-5 py-3">
-                        <div className="text-3xl font-black bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">{s.val}</div>
-                        <div className="text-xs text-[var(--section-text-muted)] font-medium uppercase tracking-widest mt-1">{s.label}</div>
+                      <div key={i} className="group relative">
+                        {/* Shadow */}
+                        <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                          shadow-[0_4px_15px_rgba(0,0,0,0.1)]
+                          group-hover:shadow-[0_8px_25px_rgba(56,189,248,0.15)]"
+                        />
+                        <div className="relative rounded-2xl px-5 py-3 backdrop-blur-xl
+                          bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-white/[0.01]
+                          transition-all duration-300">
+                          <div className="text-3xl font-black bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">{s.val}</div>
+                          <div className="text-xs text-[var(--section-text-muted)] font-medium uppercase tracking-widest mt-1">{s.label}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
-                  <div className="relative backdrop-blur-xl rounded-3xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.2)] bg-[var(--section-card-bg)] border border-[var(--section-card-border)]">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-500 rounded-t-3xl" />
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center shadow-lg mb-8">
-                      <Rocket size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-xl font-black text-[var(--section-text)] mb-6">Our Mission</h3>
-                    <blockquote className="text-lg font-medium text-[var(--section-text-muted)] leading-relaxed mb-8 border-l-2 border-sky-400 pl-6">
-                      &ldquo;To provide every forex and fintech business with the enterprise technology they need to compete globally — delivered faster, better, and more reliably than anyone else.&rdquo;
-                    </blockquote>
-                    <div className="flex items-center gap-3 border-t border-[var(--section-card-border)] pt-6">
-                      <div className="w-9 h-9 rounded-full bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-500 font-black text-xs">CG</div>
-                      <div>
-                        <p className="text-sm font-bold text-[var(--section-text)]">CYTAKE Leadership</p>
-                        <p className="text-xs text-[var(--section-text-muted)]">Global Operations Team</p>
+                  <div className="group relative">
+                    {/* Outer Glow */}
+                    <div className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] bg-gradient-to-br from-sky-400/20 to-blue-500/20" />
+                    
+                    {/* Deep Shadow */}
+                    <div className="absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500
+                      shadow-[0_20px_60px_rgba(0,0,0,0.2)]
+                      group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.3),0_0_40px_rgba(56,189,248,0.1)]"
+                    />
+
+                    <div className="relative rounded-3xl p-8 backdrop-blur-2xl
+                      bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-white/[0.01]
+                      transition-all duration-500">
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-500 rounded-t-3xl shadow-[0_0_20px_rgba(56,189,248,0.5)]" />
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center shadow-lg mb-8 group-hover:shadow-[0_0_30px_rgba(56,189,248,0.4)] transition-shadow duration-500">
+                        <Rocket size={24} className="text-white" />
+                      </div>
+                      {/* FIXED: Removed group-hover:text-white */}
+                      <h3 className="text-xl font-black text-[var(--section-text)] mb-6">Our Mission</h3>
+                      {/* FIXED: Removed group-hover:text-slate-300 */}
+                      <blockquote className="text-lg font-medium text-[var(--section-text-muted)] leading-relaxed mb-8 border-l-2 border-sky-400 pl-6">
+                        &ldquo;To provide every forex and fintech business with the enterprise technology they need to compete globally — delivered faster, better, and more reliably than anyone else.&rdquo;
+                      </blockquote>
+                      <div className="flex items-center gap-3 border-t border-white/10 pt-6">
+                        <div className="w-9 h-9 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-500 font-black text-xs shadow-[0_0_15px_rgba(56,189,248,0.3)]">CG</div>
+                        <div>
+                          {/* FIXED: Removed group-hover:text-white */}
+                          <p className="text-sm font-bold text-[var(--section-text)]">CYTAKE Leadership</p>
+                          <p className="text-xs text-[var(--section-text-muted)]">Global Operations Team</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -185,12 +239,25 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {values.map(({ icon: Icon, title, desc }, i) => (
                   <motion.div key={title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                    className="group rounded-2xl p-7 hover:-translate-y-1 transition-all bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/30">
-                    <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-400/20 flex items-center justify-center mb-4 group-hover:bg-sky-500/20 group-hover:scale-110 transition-all">
-                      <Icon size={20} className="text-sky-500" />
+                    className="group relative rounded-2xl p-7">
+                    {/* Shadow */}
+                    <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                      shadow-[0_4px_20px_rgba(0,0,0,0.08)]
+                      group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.15),0_0_30px_rgba(56,189,248,0.08)]"
+                    />
+                    
+                    <div className="relative h-full rounded-2xl p-7 backdrop-blur-xl
+                      bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-white/[0.01]
+                      transition-all duration-500
+                      group-hover:from-white/[0.08] group-hover:via-sky-500/[0.02] group-hover:to-indigo-500/[0.02]">
+                      <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center mb-4 group-hover:bg-sky-500/20 group-hover:scale-110 transition-all duration-500 shadow-[0_0_20px_rgba(56,189,248,0.1)]">
+                        <Icon size={20} className="text-sky-500" />
+                      </div>
+                      {/* FIXED: Title sirf sky-500 hoga hover pe, text white nahi */}
+                      <h3 className="text-lg font-bold text-[var(--section-text)] mb-2 group-hover:text-sky-500 transition-colors duration-300">{title}</h3>
+                      {/* FIXED: Description ka color change nahi hoga */}
+                      <p className="text-[var(--section-text-muted)] text-sm leading-relaxed">{desc}</p>
                     </div>
-                    <h3 className="text-lg font-bold text-[var(--section-text)] mb-2 group-hover:text-sky-500 transition-colors">{title}</h3>
-                    <p className="text-[var(--section-text-muted)] text-sm leading-relaxed">{desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -239,16 +306,29 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6 max-w-5xl mx-auto">
                 {bdTeam.slice(0, 3).map((member, i) => (
                   <motion.div key={member.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="group relative rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/30 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)]">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
-                    <div className="relative h-80 overflow-hidden">
-                      <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
-                    </div>
-                    <div className="p-5 text-center bg-[var(--card-content-bg)]">
-                      <h3 className="font-black text-base mb-1 transition-colors text-[var(--card-content-text)] group-hover:text-sky-500">{member.name}</h3>
-                      <p className="text-sky-500 text-xs font-semibold">{member.role}</p>
-                      <div className="w-10 h-0.5 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
+                    className="group relative rounded-3xl overflow-hidden">
+                    {/* Outer Glow */}
+                    <div className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] bg-gradient-to-t from-sky-400/20 to-transparent" />
+                    
+                    {/* Shadow */}
+                    <div className="absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500
+                      shadow-[0_8px_30px_rgba(0,0,0,0.12)]
+                      group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.25),0_0_30px_rgba(56,189,248,0.1)]"
+                    />
+
+                    <div className="relative rounded-3xl overflow-hidden backdrop-blur-xl
+                      bg-gradient-to-b from-white/[0.05] to-transparent">
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
+                      <div className="relative h-80 overflow-hidden">
+                        <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
+                      </div>
+                      <div className="p-5 text-center bg-[var(--card-content-bg)]">
+                        {/* FIXED: Removed group-hover:text-white */}
+                        <h3 className="font-black text-base mb-1 transition-colors duration-300 text-[var(--card-content-text)] group-hover:text-sky-500">{member.name}</h3>
+                        <p className="text-sky-500 text-xs font-semibold">{member.role}</p>
+                        <div className="w-10 h-0.5 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -258,16 +338,29 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
                 {bdTeam.slice(3, 5).map((member, i) => (
                   <motion.div key={member.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="group relative rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/30 hover:shadow-[0_20px_40px_rgba(56,189,248,0.1)]">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
-                    <div className="relative h-80 overflow-hidden">
-                      <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
-                    </div>
-                    <div className="p-5 text-center bg-[var(--card-content-bg)]">
-                      <h3 className="font-black text-base mb-1 transition-colors text-[var(--card-content-text)] group-hover:text-sky-500">{member.name}</h3>
-                      <p className="text-sky-500 text-xs font-semibold">{member.role}</p>
-                      <div className="w-10 h-0.5 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
+                    className="group relative rounded-3xl overflow-hidden">
+                    {/* Outer Glow */}
+                    <div className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] bg-gradient-to-t from-sky-400/20 to-transparent" />
+                    
+                    {/* Shadow */}
+                    <div className="absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500
+                      shadow-[0_8px_30px_rgba(0,0,0,0.12)]
+                      group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.25),0_0_30px_rgba(56,189,248,0.1)]"
+                    />
+
+                    <div className="relative rounded-3xl overflow-hidden backdrop-blur-xl
+                      bg-gradient-to-b from-white/[0.05] to-transparent">
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
+                      <div className="relative h-80 overflow-hidden">
+                        <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/80 via-transparent to-transparent" />
+                      </div>
+                      <div className="p-5 text-center bg-[var(--card-content-bg)]">
+                        {/* FIXED: Removed group-hover:text-white */}
+                        <h3 className="font-black text-base mb-1 transition-colors duration-300 text-[var(--card-content-text)] group-hover:text-sky-500">{member.name}</h3>
+                        <p className="text-sky-500 text-xs font-semibold">{member.role}</p>
+                        <div className="w-10 h-0.5 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-3 scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -294,13 +387,27 @@ export default function AboutPage() {
                 <div className="space-y-8">
                   {milestones.map(({ year, title, desc }, i) => (
                     <motion.div key={year} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="relative flex items-start gap-8 pl-20 group">
-                      <div className="absolute left-4 -translate-x-1/2 w-9 h-9 rounded-full bg-sky-500/20 border-2 border-sky-400 flex items-center justify-center text-xs font-black text-sky-500 shrink-0 mt-1 group-hover:bg-sky-500 group-hover:text-white transition-all">{year.slice(2)}</div>
-                      <div className="rounded-2xl p-6 flex-1 transition-colors bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/20">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className="text-xs font-black text-sky-500 uppercase tracking-widest bg-sky-500/10 px-2 py-1 rounded-md">{year}</span>
-                          <h3 className="text-base font-bold text-[var(--section-text)]">{title}</h3>
+                      <div className="absolute left-4 -translate-x-1/2 w-9 h-9 rounded-full bg-sky-500/20 border-2 border-sky-400 flex items-center justify-center text-xs font-black text-sky-500 shrink-0 mt-1 group-hover:bg-sky-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(56,189,248,0.3)]">{year.slice(2)}</div>
+                      
+                      <div className="relative flex-1 rounded-2xl p-6">
+                        {/* Shadow */}
+                        <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                          shadow-[0_4px_20px_rgba(0,0,0,0.08)]
+                          group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.15),0_0_30px_rgba(56,189,248,0.05)]"
+                        />
+                        
+                        <div className="relative rounded-2xl p-6 backdrop-blur-xl
+                          bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-white/[0.01]
+                          transition-all duration-500
+                          group-hover:from-white/[0.08] group-hover:via-sky-500/[0.02] group-hover:to-indigo-500/[0.02]">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="text-xs font-black text-sky-500 uppercase tracking-widest bg-sky-500/10 px-2 py-1 rounded-md group-hover:bg-sky-500/20 transition-colors">{year}</span>
+                            {/* FIXED: Removed group-hover:text-white */}
+                            <h3 className="text-base font-bold text-[var(--section-text)]">{title}</h3>
+                          </div>
+                          {/* FIXED: Removed group-hover:text-slate-300 */}
+                          <p className="text-[var(--section-text-muted)] text-sm leading-relaxed">{desc}</p>
                         </div>
-                        <p className="text-[var(--section-text-muted)] text-sm leading-relaxed">{desc}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -334,19 +441,33 @@ export default function AboutPage() {
                   { region: "Americas", hubs: "Cayman Islands, BVI" },
                 ].map(({ region, hubs }, i) => (
                   <motion.div key={region} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                    className="group rounded-2xl p-5 hover:-translate-y-1 transition-all bg-[var(--section-card-bg)] border border-[var(--section-card-border)] hover:border-sky-400/30">
-                    <div className="w-9 h-9 rounded-full bg-sky-500/10 border border-sky-400/20 flex items-center justify-center mx-auto mb-3 group-hover:bg-sky-500/20 transition-colors">
-                      <MapPin size={16} className="text-sky-500" />
+                    className="group relative rounded-2xl p-5">
+                    {/* Shadow */}
+                    <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                      shadow-[0_4px_15px_rgba(0,0,0,0.08)]
+                      group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.15),0_0_20px_rgba(56,189,248,0.08)]"
+                    />
+                    
+                    <div className="relative rounded-2xl p-5 h-full backdrop-blur-xl
+                      bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-white/[0.01]
+                      transition-all duration-500
+                      group-hover:from-white/[0.08] group-hover:via-sky-500/[0.03] group-hover:to-indigo-500/[0.02]
+                      group-hover:-translate-y-1">
+                      <div className="w-9 h-9 rounded-full bg-sky-500/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-sky-500/20 transition-all shadow-[0_0_15px_rgba(56,189,248,0.1)]">
+                        <MapPin size={16} className="text-sky-500" />
+                      </div>
+                      {/* FIXED: Removed group-hover:text-white */}
+                      <div className="text-sm font-bold text-[var(--section-text)] mb-1">{region}</div>
+                      {/* FIXED: Removed group-hover:text-slate-300 */}
+                      <div className="text-[10px] text-[var(--section-text-muted)] font-medium">{hubs}</div>
                     </div>
-                    <div className="text-sm font-bold text-[var(--section-text)] mb-1">{region}</div>
-                    <div className="text-[10px] text-[var(--section-text-muted)] font-medium">{hubs}</div>
                   </motion.div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* ===== CTA — dark navy banner both modes ===== */}
+          {/* ===== CTA ===== */}
           <section className="py-20">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}

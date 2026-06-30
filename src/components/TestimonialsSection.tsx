@@ -84,13 +84,25 @@ export default function TestimonialsSection() {
           </p>
         </motion.div>
 
-        {/* Slider */}
+        {/* Slider — Premium Card */}
         <div className="relative max-w-3xl mx-auto">
-          <div className="overflow-hidden rounded-3xl">
+          {/* ── Outer Glow Border (always-on subtle, intensifies) ── */}
+          <div className="absolute -inset-[2px] rounded-3xl opacity-40 hover:opacity-100 transition-opacity duration-500 blur-[4px] pointer-events-none bg-gradient-to-br from-sky-400/40 via-blue-500/30 to-indigo-500/40" />
+
+          {/* ── Deep Multi-Shadow ── */}
+          <div className="absolute inset-0 rounded-3xl pointer-events-none
+            shadow-[0_10px_40px_rgba(56,189,248,0.15),0_25px_70px_rgba(56,189,248,0.1),0_5px_15px_rgba(0,0,0,0.3),0_0_100px_rgba(56,189,248,0.06)]"
+          />
+
+          <div className="relative overflow-hidden rounded-3xl z-[3]">
             <AnimatePresence mode="wait" custom={dir}>
               <motion.div
                 key={current} custom={dir} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                className="relative rounded-3xl p-8 sm:p-10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden bg-[var(--section-card-bg)] border border-[var(--section-card-border)]"
+                className="relative rounded-3xl p-8 sm:p-10 overflow-hidden
+                  backdrop-blur-xl
+                  border border-white/[0.1]
+                  bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-white/[0.02]
+                  shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.15),inset_0_0_40px_rgba(56,189,248,0.04)]"
               >
                 {/* Big Quote Background */}
                 <Quote size={120} className="absolute -top-4 -right-4 text-[var(--section-text)] opacity-[0.05]" />
@@ -98,8 +110,14 @@ export default function TestimonialsSection() {
                 {/* Top Gradient Bar */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-500" />
 
+                {/* Top edge highlight */}
+                <div className="absolute top-1.5 left-[15%] right-[15%] h-[1px] bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
+
+                {/* Radial glow from corner */}
+                <div className="absolute inset-0 opacity-60 pointer-events-none" style={{ background: `radial-gradient(circle at 100% 0%, rgba(56,189,248,0.08), transparent 50%)` }} />
+
                 <div className="relative z-10">
-                  <Quote size={36} className="text-sky-500 mb-6" />
+                  <Quote size={36} className="text-sky-500 mb-6 drop-shadow-[0_0_15px_rgba(56,189,248,0.5)]" />
 
                   <p className="text-lg sm:text-xl text-[var(--section-text)] leading-relaxed mb-8 font-medium">
                     &ldquo;{testimonials[current].quote}&rdquo;
@@ -107,9 +125,17 @@ export default function TestimonialsSection() {
 
                   <div className="flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-[var(--section-card-border)]">
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center text-white font-black text-base shrink-0 shadow-lg">
-                        {testimonials[current].avatar}
+                      {/* Avatar with premium glow */}
+                      <div className="relative shrink-0">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center text-white font-black text-base
+                          shadow-[0_4px_15px_rgba(0,0,0,0.2),0_0_20px_rgba(56,189,248,0.3),inset_0_1px_0_rgba(255,255,255,0.2)]"
+                        >
+                          {testimonials[current].avatar}
+                        </div>
+                        {/* Avatar glow ring */}
+                        <div className="absolute -inset-1 rounded-2xl bg-sky-400/30 blur-md -z-10" />
                       </div>
+
                       <div>
                         <div className="font-black text-[var(--section-text)]">{testimonials[current].name}</div>
                         <div className="text-sm text-[var(--section-text-muted)]">{testimonials[current].role}</div>
@@ -119,7 +145,7 @@ export default function TestimonialsSection() {
 
                     <div className="flex gap-1">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} size={16} className="text-amber-400 fill-amber-400" />
+                        <Star key={i} size={16} className="text-amber-400 fill-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.4)]" />
                       ))}
                     </div>
                   </div>
@@ -130,33 +156,93 @@ export default function TestimonialsSection() {
 
           {/* Controls */}
           <div className="flex items-center justify-center gap-4 mt-8">
-            <button onClick={prev} className="w-11 h-11 rounded-full flex items-center justify-center transition-all bg-[var(--section-card-bg)] border border-[var(--section-card-border)] text-[var(--section-text-muted)] hover:text-sky-500 hover:border-sky-400/50">
-              <ChevronLeft size={18} />
+            <button
+              onClick={prev}
+              className="group relative w-11 h-11 rounded-full flex items-center justify-center transition-all duration-500
+                bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-white/[0.02]
+                backdrop-blur-xl
+                border border-white/[0.1]
+                text-[var(--section-text-muted)]
+                shadow-[0_4px_15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.08)]
+                hover:text-sky-400
+                hover:border-sky-400/50
+                hover:shadow-[0_8px_25px_rgba(56,189,248,0.25),0_0_30px_rgba(56,189,248,0.1),inset_0_1px_0_rgba(255,255,255,0.12)]
+                hover:scale-110"
+            >
+              <ChevronLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
             </button>
 
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
-                <button key={i} onClick={() => go(i, i > current ? 1 : -1)}
-                  className={`rounded-full transition-all duration-300 ${i === current ? "w-8 h-2.5 bg-sky-500" : "w-2.5 h-2.5 bg-[var(--section-card-border)] hover:opacity-70"}`} />
+                <button
+                  key={i}
+                  onClick={() => go(i, i > current ? 1 : -1)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === current
+                      ? "w-8 h-2.5 bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.6)]"
+                      : "w-2.5 h-2.5 bg-[var(--section-card-border)] hover:opacity-70 hover:scale-125"
+                  }`}
+                />
               ))}
             </div>
 
-            <button onClick={next} className="w-11 h-11 rounded-full flex items-center justify-center transition-all bg-[var(--section-card-bg)] border border-[var(--section-card-border)] text-[var(--section-text-muted)] hover:text-sky-500 hover:border-sky-400/50">
-              <ChevronRight size={18} />
+            <button
+              onClick={next}
+              className="group relative w-11 h-11 rounded-full flex items-center justify-center transition-all duration-500
+                bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-white/[0.02]
+                backdrop-blur-xl
+                border border-white/[0.1]
+                text-[var(--section-text-muted)]
+                shadow-[0_4px_15px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.08)]
+                hover:text-sky-400
+                hover:border-sky-400/50
+                hover:shadow-[0_8px_25px_rgba(56,189,248,0.25),0_0_30px_rgba(56,189,248,0.1),inset_0_1px_0_rgba(255,255,255,0.12)]
+                hover:scale-110"
+            >
+              <ChevronRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
             </button>
           </div>
         </div>
 
-        {/* Countries */}
+        {/* Countries — Premium Badge Pills */}
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="mt-20 text-center">
           <p className="text-xs text-[var(--section-text-muted)] uppercase tracking-widest mb-6 font-bold">
             Active clients across
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {["United Kingdom", "UAE", "India", "Australia", "Singapore", "Cyprus", "Mauritius", "South Africa", "Hong Kong", "Cayman Islands"].map((c, i) => (
-              <motion.span key={c} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} whileHover={{ y: -3, scale: 1.05 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.04 }}
-                className="text-xs font-semibold px-4 py-2 rounded-xl backdrop-blur-sm transition-all cursor-default bg-[var(--section-card-bg)] border border-[var(--section-card-border)] text-[var(--section-text-muted)] hover:border-sky-400/30 hover:text-[var(--section-text)]">
-                {c}
+              <motion.span
+                key={c}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                whileHover={{ y: -3, scale: 1.05 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
+                className="group relative text-xs font-semibold px-4 py-2 rounded-xl cursor-default"
+              >
+                {/* Outer glow */}
+                <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] pointer-events-none bg-gradient-to-br from-sky-400/40 via-blue-500/20 to-indigo-400/40" />
+
+                {/* Deep shadow */}
+                <div className="absolute inset-0 rounded-xl pointer-events-none transition-all duration-500
+                  shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_15px_rgba(0,0,0,0.05)]
+                  group-hover:shadow-[0_6px_20px_rgba(56,189,248,0.2),0_10px_30px_rgba(56,189,248,0.1)]"
+                />
+
+                {/* Badge content */}
+                <span className="relative z-[2] block px-4 py-2 -mx-4 -my-2 rounded-xl
+                  backdrop-blur-xl
+                  border border-white/[0.1]
+                  bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-white/[0.02]
+                  text-[var(--section-text-muted)]
+                  transition-all duration-500
+                  group-hover:border-sky-400/40
+                  group-hover:text-white
+                  shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]
+                  group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_0_15px_rgba(56,189,248,0.05)]"
+                >
+                  {c}
+                </span>
               </motion.span>
             ))}
           </div>

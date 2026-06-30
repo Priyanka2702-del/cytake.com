@@ -97,30 +97,46 @@ export default function ContactPage() {
 
                 {/* Sidebar */}
                 <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-5">
-                  <div className="rounded-2xl p-6 backdrop-blur-sm bg-[var(--section-card-bg)] border border-[var(--section-card-border)]">
-                    <h3 className="text-base font-black text-[var(--section-text)] mb-4">Get in Touch</h3>
-                    <div className="space-y-4">
-                      {[
-                        { icon: Mail, label: "Email Us", value: "info@cytake.com", href: "mailto:info@cytake.com" },
-                        { icon: Phone, label: "WhatsApp Support", value: "Available 24/7", href: "https://wa.me/1234567890" },
-                        { icon: Globe, label: "Global Operations", value: "50+ Countries Served", href: "#" },
-                        { icon: MessageSquare, label: "Response Time", value: "Within 2 Hours", href: "#" },
-                      ].map((item, i) => (
-                        <a key={i} href={item.href} className="flex items-center gap-3 group">
-                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
-                            <item.icon size={16} className="text-white" />
-                          </div>
-                          <div>
-                            <div className="text-[10px] text-[var(--section-text-muted)] uppercase tracking-wide font-semibold">{item.label}</div>
-                            <div className="text-sm font-bold text-[var(--section-text)] group-hover:text-sky-500 transition-colors">{item.value}</div>
-                          </div>
-                        </a>
-                      ))}
+                  
+                  {/* Contact Info Card - Premium */}
+                  <div className="group relative rounded-2xl p-6">
+                    {/* Outer Glow */}
+                    <div className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] pointer-events-none bg-gradient-to-br from-sky-400/20 to-blue-500/20" />
+                    
+                    {/* Shadow */}
+                    <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500
+                      shadow-[0_4px_20px_rgba(0,0,0,0.1),0_8px_30px_rgba(0,0,0,0.08)]
+                      group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.2),0_0_30px_rgba(56,189,248,0.1)]"
+                    />
+
+                    <div className="relative rounded-2xl p-6 backdrop-blur-xl
+                      bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-white/[0.01]
+                      transition-all duration-500">
+                      <h3 className="text-base font-black text-[var(--section-text)] mb-4">Get in Touch</h3>
+                      <div className="space-y-4">
+                        {[
+                          { icon: Mail, label: "Email Us", value: "info@cytake.com", href: "mailto:info@cytake.com" },
+                          { icon: Phone, label: "WhatsApp Support", value: "Available 24/7", href: "https://wa.me/1234567890" },
+                          { icon: Globe, label: "Global Operations", value: "50+ Countries Served", href: "#" },
+                          { icon: MessageSquare, label: "Response Time", value: "Within 2 Hours", href: "#" },
+                        ].map((item, i) => (
+                          <a key={i} href={item.href} className="flex items-center gap-3 group/item">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-sky-500 flex items-center justify-center shrink-0 shadow-md group-hover/item:scale-110 transition-transform">
+                              <item.icon size={16} className="text-white" />
+                            </div>
+                            <div>
+                              <div className="text-[10px] text-[var(--section-text-muted)] uppercase tracking-wide font-semibold">{item.label}</div>
+                              <div className="text-sm font-bold text-[var(--section-text)] group-hover/item:text-sky-500 transition-colors">{item.value}</div>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  {/* What Happens Next — navy card both modes */}
-                  <div className="rounded-2xl p-6 bg-gradient-to-br from-[#0B1B3F] to-[#0d2456] border border-white/5">
+                  {/* What Happens Next - Navy Card (already good) */}
+                  <div className="relative rounded-2xl p-6 bg-gradient-to-br from-[#0B1B3F] to-[#0d2456] border border-white/5
+                    shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
                     <h3 className="text-base font-black text-white mb-4">What Happens Next</h3>
                     <div className="space-y-4">
                       {["We receive your inquiry and assign a specialist", "You receive a response within 2 hours", "We schedule a discovery call", "We deliver a custom proposal within 24 hours"].map((text, i) => (
@@ -133,87 +149,114 @@ export default function ContactPage() {
                   </div>
                 </motion.div>
 
-                {/* Form */}
+                {/* Form - Premium Floating */}
                 <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2">
-                  <div className="rounded-3xl p-8 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] bg-[var(--section-card-bg)] border border-[var(--section-card-border)]">
-                    {sent ? (
-                      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-16">
-                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200 }} className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30">
-                          <CheckCircle size={36} className="text-white" />
+                  <div className="group relative">
+                    {/* Outer Glow */}
+                    <div className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[2px] pointer-events-none bg-gradient-to-br from-sky-400/20 via-blue-500/10 to-indigo-400/20" />
+                    
+                    {/* Deep Shadow */}
+                    <div className="absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500
+                      shadow-[0_20px_60px_rgba(0,0,0,0.15),0_0_40px_rgba(0,0,0,0.05)]
+                      group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.25),0_0_60px_rgba(56,189,248,0.08)]"
+                    />
+
+                    {/* Shine Sweep */}
+                    <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-10">
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/[0.05] to-transparent skew-x-[-20deg]" />
+                    </div>
+
+                    <div className="relative rounded-3xl p-8 backdrop-blur-2xl
+                      bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-white/[0.01]
+                      transition-all duration-500
+                      group-hover:from-white/[0.1] group-hover:via-sky-500/[0.02] group-hover:to-indigo-500/[0.02]">
+                      
+                      {/* Top gradient bar */}
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-500 rounded-t-3xl shadow-[0_0_20px_rgba(56,189,248,0.5)]" />
+
+                      {sent ? (
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-16">
+                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200 }} className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+                            <CheckCircle size={36} className="text-white" />
+                          </motion.div>
+                          <h3 className="text-2xl font-black text-[var(--section-text)] mb-3">Your Message is on Its Way!</h3>
+                          <p className="text-[var(--section-text-muted)] text-lg mb-8">Our team will review your requirements and reach out within 2 hours.</p>
+                          <button onClick={() => setSent(false)} className="px-6 py-3 rounded-xl text-sm font-bold text-sky-500 border border-sky-400/30 hover:bg-sky-500/10 transition-all">Send Another Message</button>
                         </motion.div>
-                        <h3 className="text-2xl font-black text-[var(--section-text)] mb-3">Your Message is on Its Way!</h3>
-                        <p className="text-[var(--section-text-muted)] text-lg mb-8">Our team will review your requirements and reach out within 2 hours.</p>
-                        <button onClick={() => setSent(false)} className="px-6 py-3 rounded-xl text-sm font-bold text-sky-500 border border-sky-400/30 hover:bg-sky-500/10 transition-all">Send Another Message</button>
-                      </motion.div>
-                    ) : (
-                      <form onSubmit={handleSubmit}>
-                        <h2 className="text-xl font-black text-[var(--section-text)] mb-1">Tell Us About Your Project</h2>
-                        <p className="text-[var(--section-text-muted)] text-sm mb-6">Fill in the details and we&apos;ll get back to you within 2 hours.</p>
+                      ) : (
+                        <form onSubmit={handleSubmit}>
+                          <h2 className="text-xl font-black text-[var(--section-text)] mb-1">Tell Us About Your Project</h2>
+                          <p className="text-[var(--section-text-muted)] text-sm mb-6">Fill in the details and we&apos;ll get back to you within 2 hours.</p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                          <div>
-                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Full Name *</label>
-                            <input name="name" value={form.name} onChange={handleChange} required placeholder="John Mitchell" className={inputClass} />
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                            <div>
+                              <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Full Name *</label>
+                              <input name="name" value={form.name} onChange={handleChange} required placeholder="John Mitchell" className={inputClass} />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Work Email *</label>
+                              <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="john@company.com" className={inputClass} />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Company / Firm</label>
+                              <input name="company" value={form.company} onChange={handleChange} placeholder="Acme Brokers Ltd" className={inputClass} />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-bold text-[var(--section-muted)] mb-1.5 uppercase tracking-wide">Phone / WhatsApp</label>
+                              <input name="phone" value={form.phone} onChange={handleChange} placeholder="+44 7700 900000" className={inputClass} />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Solution Needed</label>
+                              <select name="solution" value={form.solution} onChange={handleChange} className={`${inputClass} cursor-pointer`}>
+                                <option value="" className="bg-[var(--field-option-bg)]">Select a solution…</option>
+                                {solutions.map((s) => <option key={s.slug} value={s.slug} className="bg-[var(--field-option-bg)]">{s.title}</option>)}
+                                <option value="general" className="bg-[var(--field-option-bg)]">General Inquiry</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Approx. Budget</label>
+                              <select name="budget" value={form.budget} onChange={handleChange} className={`${inputClass} cursor-pointer`}>
+                                <option value="" className="bg-[var(--field-option-bg)]">Select budget…</option>
+                                <option value="<10k" className="bg-[var(--field-option-bg)]">Under $10,000</option>
+                                <option value="10-50k" className="bg-[var(--field-option-bg)]">$10,000 – $50,000</option>
+                                <option value="50-100k" className="bg-[var(--field-option-bg)]">$50,000 – $100,000</option>
+                                <option value="100k+" className="bg-[var(--field-option-bg)]">$100,000+</option>
+                                <option value="discuss" className="bg-[var(--field-option-bg)]">Prefer to discuss</option>
+                              </select>
+                            </div>
                           </div>
-                          <div>
-                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Work Email *</label>
-                            <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="john@company.com" className={inputClass} />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Company / Firm</label>
-                            <input name="company" value={form.company} onChange={handleChange} placeholder="Acme Brokers Ltd" className={inputClass} />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Phone / WhatsApp</label>
-                            <input name="phone" value={form.phone} onChange={handleChange} placeholder="+44 7700 900000" className={inputClass} />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Solution Needed</label>
-                            <select name="solution" value={form.solution} onChange={handleChange} className={`${inputClass} cursor-pointer`}>
-                              <option value="" className="bg-[var(--field-option-bg)]">Select a solution…</option>
-                              {solutions.map((s) => <option key={s.slug} value={s.slug} className="bg-[var(--field-option-bg)]">{s.title}</option>)}
-                              <option value="general" className="bg-[var(--field-option-bg)]">General Inquiry</option>
-                            </select>
-                          </div>
-                          <div>
-                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Approx. Budget</label>
-                            <select name="budget" value={form.budget} onChange={handleChange} className={`${inputClass} cursor-pointer`}>
-                              <option value="" className="bg-[var(--field-option-bg)]">Select budget…</option>
-                              <option value="<10k" className="bg-[var(--field-option-bg)]">Under $10,000</option>
-                              <option value="10-50k" className="bg-[var(--field-option-bg)]">$10,000 – $50,000</option>
-                              <option value="50-100k" className="bg-[var(--field-option-bg)]">$50,000 – $100,000</option>
-                              <option value="100k+" className="bg-[var(--field-option-bg)]">$100,000+</option>
-                              <option value="discuss" className="bg-[var(--field-option-bg)]">Prefer to discuss</option>
-                            </select>
-                          </div>
-                        </div>
 
-                        <div className="mb-6">
-                          <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Project Details *</label>
-                          <textarea name="message" value={form.message} onChange={handleChange} required rows={5} placeholder="Describe your project, current situation, timeline, and any specific requirements…" className={`${inputClass} resize-none`} />
-                        </div>
+                          <div className="mb-6">
+                            <label className="block text-xs font-bold text-[var(--section-text-muted)] mb-1.5 uppercase tracking-wide">Project Details *</label>
+                            <textarea name="message" value={form.message} onChange={handleChange} required rows={5} placeholder="Describe your project, current situation, timeline, and any specific requirements…" className={`${inputClass} resize-none`} />
+                          </div>
 
-                        <motion.button type="submit" disabled={loading} whileTap={{ scale: 0.99 }}
-                          className="w-full flex items-center justify-center gap-2 font-black text-base rounded-xl px-6 py-4 disabled:opacity-60 transition-all shadow-[0_0_20px_rgba(37,99,235,0.15)] bg-[var(--cta-white-bg)] text-[var(--cta-white-text)] hover:bg-[var(--cta-white-hover)]">
-                          {loading
-                            ? <><div className="w-5 h-5 border-2 border-current/30 border-t-current rounded-full animate-spin" /> Submitting…</>
-                            : <>Submit Inquiry <ArrowRight size={16} /></>
-                          }
-                        </motion.button>
+                          <motion.button type="submit" disabled={loading} whileTap={{ scale: 0.99 }}
+                            className="w-full flex items-center justify-center gap-2 font-black text-base rounded-xl px-6 py-4 disabled:opacity-60 transition-all 
+                            shadow-[0_0_20px_rgba(37,99,235,0.15)] 
+                            bg-[var(--cta-white-bg)] text-[var(--cta-white-text)] 
+                            hover:bg-[var(--cta-white-hover)]
+                            hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+                            {loading
+                              ? <><div className="w-5 h-5 border-2 border-current/30 border-t-current rounded-full animate-spin" /> Submitting…</>
+                              : <>Submit Inquiry <ArrowRight size={16} /></>
+                            }
+                          </motion.button>
 
-                        <div className="flex items-center justify-center gap-2 mt-4 text-xs text-[var(--section-text-muted)]">
-                          <Shield size={12} className="text-emerald-500" />
-                          Your information is secure. We respond within 2 hours.
-                        </div>
-                      </form>
-                    )}
+                          <div className="flex items-center justify-center gap-2 mt-4 text-xs text-[var(--section-text-muted)]">
+                            <Shield size={12} className="text-emerald-500" />
+                            Your information is secure. We respond within 2 hours.
+                          </div>
+                        </form>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               </div>
             </div>
           </section>
 
-          {/* ===== FAQ ===== */}
+          {/* ===== FAQ - Premium Cards ===== */}
           <section className="py-20">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
@@ -231,20 +274,37 @@ export default function ContactPage() {
               <div className="space-y-3">
                 {faqs.map((faq, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                    className={`rounded-2xl overflow-hidden border transition-all duration-300 ${openFaq === i ? "border-sky-400/30 shadow-[0_10px_30px_rgba(56,189,248,0.1)]" : "border-[var(--section-card-border)]"} bg-[var(--section-card-bg)]`}>
-                    <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none">
-                      <span className={`text-sm font-bold pr-4 transition-colors ${openFaq === i ? "text-sky-500" : "text-[var(--section-text)]"}`}>{faq.q}</span>
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-colors ${openFaq === i ? "bg-sky-500/20 text-sky-500" : "bg-[var(--section-card-bg)] text-[var(--section-text-muted)] border border-[var(--section-card-border)]"}`}>
-                        {openFaq === i ? <Minus size={14} /> : <Plus size={14} />}
-                      </div>
-                    </button>
-                    <AnimatePresence>
-                      {openFaq === i && (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="px-6 pb-5">
-                          <p className="text-[var(--section-text-muted)] text-sm leading-relaxed border-t border-[var(--section-card-border)] pt-4">{faq.a}</p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${openFaq === i ? "shadow-[0_10px_30px_rgba(56,189,248,0.1)]" : ""}`}>
+                    
+                    {/* Shadow Layer */}
+                    <div className={`absolute inset-0 rounded-2xl pointer-events-none transition-all duration-300
+                      ${openFaq === i 
+                        ? "shadow-[0_8px_30px_rgba(0,0,0,0.15),0_0_20px_rgba(56,189,248,0.08)]" 
+                        : "shadow-[0_4px_15px_rgba(0,0,0,0.08)] group-hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)]"
+                      }`}
+                    />
+
+                    <div className={`relative rounded-2xl overflow-hidden backdrop-blur-xl transition-all duration-300
+                      ${openFaq === i 
+                        ? "bg-gradient-to-br from-white/[0.08] via-sky-500/[0.02] to-indigo-500/[0.02]" 
+                        : "bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-white/[0.01] group-hover:from-white/[0.07]"
+                      }`}>
+                      
+                      <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none">
+                        <span className={`text-sm font-bold pr-4 transition-colors ${openFaq === i ? "text-sky-500" : "text-[var(--section-text)]"}`}>{faq.q}</span>
+                        <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-colors ${openFaq === i ? "bg-sky-500/20 text-sky-500" : "bg-white/5 text-[var(--section-text-muted)]"}`}>
+                          {openFaq === i ? <Minus size={14} /> : <Plus size={14} />}
+                        </div>
+                      </button>
+                      
+                      <AnimatePresence>
+                        {openFaq === i && (
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="px-6 pb-5">
+                            <p className="text-[var(--section-text-muted)] text-sm leading-relaxed border-t border-white/10 pt-4">{faq.a}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   </motion.div>
                 ))}
               </div>
