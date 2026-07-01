@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     default: "CYTAKE Global | Enterprise Forex & Fintech Infrastructure",
-    template: "%s | CYTAKE Global",
+    template: "",
   },
   description:
     "CYTAKE Global provides enterprise-grade forex and fintech infrastructure — broker technology, prop firm platforms, trading CRMs, payment gateways, and complete trading ecosystems worldwide.",
